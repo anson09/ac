@@ -1,5 +1,3 @@
-//* DFS思路 前中序、后中序可还原树，前后序信息不足
-
 const listGenetator = (number) =>
   new Array(number).fill(null).map((i) => Math.floor(Math.random() * 100));
 
@@ -8,6 +6,30 @@ class Node {
     this.val = val;
     this.left = this.right = null;
   }
+}
+
+//* DFS思路 前中序、后中序可还原树，前后序信息不足
+// 前中序还原二叉树
+function restoreTree(preorder, inorder) {
+  if (!preorder || preorder.length < 1) {
+    return null;
+  }
+  const root = preorder[0];
+  const treeNode = new Node(root);
+  if (preorder.length === 1) {
+    return treeNode;
+  }
+
+  let rootIndex = inorder.indexOf(root);
+  let inLeftTree = inorder.slice(0, rootIndex);
+  let preLeftTree = preorder.slice(1, inLeftTree.length + 1);
+  let inRightTree = inorder.slice(rootIndex + 1, inorder.length);
+  let preRightTree = preorder.slice(preLeftTree.length + 1, preorder.length);
+
+  treeNode.left = restoreTree(preLeftTree, inLeftTree);
+  treeNode.right = restoreTree(preRightTree, inRightTree);
+
+  return treeNode;
 }
 
 // BFS思路建完全二叉树
