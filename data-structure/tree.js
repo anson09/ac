@@ -117,6 +117,40 @@ function width(root) {
   return width;
 }
 
+// 镜面反转二叉树
+function rotate(root) {
+  if (!root) return;
+  let tmp = root.left;
+  root.left = root.right;
+  root.right = tmp;
+  rotate(root.left);
+  rotate(root.right);
+}
+
+// 获取两个结点间的路径
+function route(root, node) {
+  const path = [];
+
+  function linkParent(root) {
+    if (!root) return;
+    if (root.left) {
+      root.left.parent = root;
+      linkParent(root.left);
+    }
+    if (root.right) {
+      root.right.parent = root;
+      linkParent(root.right);
+    }
+  }
+
+  linkParent(root);
+  while (node) {
+    path.push(node);
+    node = node.parent;
+  }
+  return path;
+}
+
 // test part
 const assert = require("assert").strict;
 const nodeCount = 20;
