@@ -172,6 +172,41 @@ function route2(root, end) {
     }
   }
 }
+
+// 最低的一层，叶子节点不一定是
+function isLastLayer(root, node) {
+  return depth(root) === route2(root, node).length;
+}
+
+// 按满二叉树宽搜打印树内容，空节点补null
+function bfsPrint(root) {
+  let array = [];
+  let queue = [];
+  let current = null;
+
+  queue.push(root);
+
+  while (queue.length) {
+    current = queue.shift();
+    array.push(current.val);
+
+    if (current.left) {
+      queue.push(current.left);
+    } else if (!isLastLayer(root, current)) {
+      current.left = new TreeNode();
+      queue.push(current.left);
+    }
+    if (current.right) {
+      queue.push(current.right);
+    } else if (!isLastLayer(root, current)) {
+      current.right = new TreeNode();
+      queue.push(current.right);
+    }
+  }
+
+  return array;
+}
+
 // test part
 const assert = require("assert").strict;
 const nodeCount = 20;
