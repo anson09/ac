@@ -332,36 +332,6 @@ class BinarySearchTree {
     traverseRecursive(this._root);
   }
 
-  traversePreOrder(cb) {
-    if (typeof cb !== "function") {
-      throw new Error(".traversePreOrder expects a callback function");
-    }
-
-    const traverseRecursive = (current) => {
-      if (current === null) return;
-      cb(current);
-      traverseRecursive(current.getLeft());
-      traverseRecursive(current.getRight());
-    };
-
-    traverseRecursive(this._root);
-  }
-
-  traversePostOrder(cb) {
-    if (typeof cb !== "function") {
-      throw new Error(".traversePostOrder expects a callback function");
-    }
-
-    const traverseRecursive = (current) => {
-      if (current === null) return;
-      traverseRecursive(current.getLeft());
-      traverseRecursive(current.getRight());
-      cb(current);
-    };
-
-    traverseRecursive(this._root);
-  }
-
   clear() {
     this._root = null;
     this._count = 0;
@@ -493,14 +463,34 @@ class BST {
 
     return current;
   }
+
+  kthSmallest(k) {
+    let i = 0;
+    let val = null;
+    travel(this.root);
+    return val;
+
+    function travel(node) {
+      node.left && travel(node.left);
+
+      if (++i === k) {
+        val = node.val;
+        return;
+      }
+
+      node.right && travel(node.right);
+    }
+  }
 }
 
 let tree = new BST();
 tree.create(10);
 tree.create(4);
 tree.create(4);
+tree.create(5);
 tree.create(12);
 tree.create(2);
+
 console.dir(tree, { depth: null });
 tree.delete(10);
 console.dir(tree, { depth: null });

@@ -127,30 +127,51 @@ function rotate(root) {
   rotate(root.right);
 }
 
-// 获取两个结点间的路径
-function route(root, node) {
+// 获取根结点到任意节点的路径，构建反向连接
+function route(root, end) {
   const path = [];
 
-  function linkParent(root) {
-    if (!root) return;
-    if (root.left) {
-      root.left.parent = root;
-      linkParent(root.left);
+  function linkParent(node) {
+    if (!node) return;
+    if (node.left) {
+      node.left.parent = node;
+      linkParent(node.left);
     }
-    if (root.right) {
-      root.right.parent = root;
-      linkParent(root.right);
+    if (node.right) {
+      node.right.parent = node;
+      linkParent(node.right);
     }
   }
 
   linkParent(root);
-  while (node) {
-    path.push(node);
-    node = node.parent;
+  while (end) {
+    path.unshift(end);
+    end = end.parent;
   }
   return path;
 }
 
+// 获取根结点到任意节点的路径，找到终点后开始收敛
+function route2(root, end) {
+  return travel(root);
+
+  function travel(node, path = []) {
+    if (node.left && travel(node.left, path)) {
+      path.unshift(node);
+      return path;
+    }
+
+    if (node.val === end.val) {
+      path.unshift(node);
+      return path;
+    }
+
+    if (node.right && travel(node.right, path)) {
+      path.unshift(node);
+      return path;
+    }
+  }
+}
 // test part
 const assert = require("assert").strict;
 const nodeCount = 20;
