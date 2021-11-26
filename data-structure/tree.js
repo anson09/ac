@@ -173,6 +173,18 @@ function route2(root, end) {
   }
 }
 
+function lowestCommonAncestor(root, p, q) {
+  if (root === null || root === p || root === q) {
+    return root;
+  }
+  let left = lowestCommonAncestor(root.left, p, q);
+  let right = lowestCommonAncestor(root.right, p, q);
+  if (left && right) {
+    return root;
+  }
+  return left || right;
+}
+
 // 最低的一层，叶子节点不一定是
 function isLastLayer(root, node) {
   return depth(root) === route2(root, node).length;
