@@ -64,10 +64,10 @@ function bfs(root) {
   return visit;
 }
 
-function dfsLoop(root) {
+function dfsPreOrderLoop(root) {
   const visit = [];
   const stack = [];
-  stack.push(root);
+  if (root) stack.push(root);
   while (stack.length) {
     const node = stack.pop();
     visit.push(node.val);
@@ -77,12 +77,63 @@ function dfsLoop(root) {
   return visit;
 }
 
+function dfsInOrderLoop(root) {
+  const visit = [];
+  const stack = [];
+  while (true) {
+    while (root) {
+      stack.push(root);
+      root = root.left;
+    }
+    if (!stack.length) break;
+    root = stack.pop();
+    visit.push(root.val);
+    root = root.right;
+  }
+  return visit;
+}
+
+function dfsPostOrderLoop(root) {
+  const visit = [];
+  const stack = [];
+  if (root) stack.push(root);
+  while (stack.length) {
+    const node = stack.pop();
+    visit.push(node.val);
+    if (node.left) stack.push(node.left);
+    if (node.right) stack.push(node.right);
+  }
+  return visit.reverse();
+}
+
 function dfsPreOrder(root) {
   const visit = [];
   function traverse(node) {
     visit.push(node.val);
     if (node.left) traverse(node.left);
     if (node.right) traverse(node.right);
+  }
+  traverse(root);
+  return visit;
+}
+
+function dfsInOrder(root) {
+  const visit = [];
+  function traverse(node) {
+    if (node.left) traverse(node.left);
+    visit.push(node.val);
+    if (node.right) traverse(node.right);
+  }
+  traverse(root);
+  return visit;
+}
+
+function dfsPostOrder(root) {
+  const visit = [];
+  function traverse(node) {
+    if (node.left) traverse(node.left);
+    if (node.right) traverse(node.right);
+    visit.push(node.val);
   }
   traverse(root);
   return visit;
@@ -219,36 +270,61 @@ function bfsPrint(root) {
   return array;
 }
 
-// test part
+/* test part */
 const assert = require("assert").strict;
 const nodeCount = 20;
 const list = listGenetator(nodeCount);
 const tree = create(list);
+
+const treeWidthList = ((nodeCount) => {
+  const list = [];
+  let i = 0;
+  while (nodeCount > 0) {
+    const width = 2 ** list.length;
+    if (nodeCount >= width) {
+      nodeCount -= width;
+      list.push(width);
+    } else {
+      list.push(nodeCount);
+      break;
+    }
+    i++;
+  }
+  return JSON.stringify(list);
+})(nodeCount);
+
+const randomLeave = ((root) => {
+  while (true) {
+    const direction = Math.random() > 0.5 ? "left" : "right";
+
+    if (root[direction]) root = root[direction];
+    else break;
+  }
+  return root;
+})(tree);
+
 assert.strictEqual(JSON.stringify(bfs(tree)), JSON.stringify(list));
+
+assert.strictEqual(
+  JSON.stringify(dfsPreOrderLoop(tree)),
+  JSON.stringify(dfsPreOrder(tree))
+);
+assert.strictEqual(
+  JSON.stringify(dfsInOrderLoop(tree)),
+  JSON.stringify(dfsInOrder(tree))
+);
+assert.strictEqual(
+  JSON.stringify(dfsPostOrderLoop(tree)),
+  JSON.stringify(dfsPostOrder(tree))
+);
+
 assert.strictEqual(
   depth(tree),
   Math.ceil(Math.log(nodeCount + 1) / Math.log(2))
 );
+assert.strictEqual(JSON.stringify(width(tree)), treeWidthList);
+
 assert.strictEqual(
-  JSON.stringify(dfsLoop(tree)),
-  JSON.stringify(dfsPreOrder(tree))
-);
-assert.strictEqual(
-  JSON.stringify(width(tree)),
-  ((nodeCount) => {
-    const list = [];
-    let i = 0;
-    while (nodeCount > 0) {
-      const width = 2 ** list.length;
-      if (nodeCount >= width) {
-        nodeCount -= width;
-        list.push(width);
-      } else {
-        list.push(nodeCount);
-        break;
-      }
-      i++;
-    }
-    return JSON.stringify(list);
-  })(nodeCount)
+  JSON.stringify(route(tree, randomLeave).map((i) => i.val)),
+  JSON.stringify(route2(tree, randomLeave).map((i) => i.val))
 );
