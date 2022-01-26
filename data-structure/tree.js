@@ -203,6 +203,23 @@ function routeByLink(root, end) {
   return path;
 }
 
+// 可优化为 routeByDFS 版本
+function routeByStack(root, end) {
+  const path = [];
+  let found = false;
+
+  function travel(root) {
+    path.push(root);
+    if (root === end) found = true;
+    if (!found && root.left) travel(root.left);
+    if (!found && root.right) travel(root.right);
+    if (!found) path.pop(root);
+  }
+
+  travel(root);
+  return path;
+}
+
 // 获取根结点到任意节点的路径，找到终点后开始收敛
 function routeByDFS(root, end) {
   return travel(root);
@@ -329,6 +346,10 @@ assert.strictEqual(
 );
 assert.strictEqual(JSON.stringify(width(tree)), treeWidthList);
 
+assert.strictEqual(
+  JSON.stringify(routeByLink(tree, randomLeave).map((i) => i.val)),
+  JSON.stringify(routeByStack(tree, randomLeave).map((i) => i.val))
+);
 assert.strictEqual(
   JSON.stringify(routeByLink(tree, randomLeave).map((i) => i.val)),
   JSON.stringify(routeByDFS(tree, randomLeave).map((i) => i.val))
