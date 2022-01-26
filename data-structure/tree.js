@@ -179,7 +179,8 @@ function rotate(root) {
 }
 
 // 获取根结点到任意节点的路径，构建反向连接
-function route(root, end) {
+// 获得任意两条根到节点连接, 连接头部去重后连接上就是两节点的最短路, 头部开始最后一个相同节点就是两条连接的最近公共父亲
+function routeByLink(root, end) {
   const path = [];
 
   function linkParent(node) {
@@ -203,16 +204,20 @@ function route(root, end) {
 }
 
 // 获取根结点到任意节点的路径，找到终点后开始收敛
-function route2(root, end) {
+function routeByDFS(root, end) {
   return travel(root);
 
   function travel(node, path = []) {
-    if (node.left && travel(node.left, path)) {
+    // 前中后序皆可, 节点满足条件时才执行逻辑
+    if (node.val === end.val) {
+      // 基础深搜变形版本, 大部分算法都是基础版本变形
+      // 深搜查找元素 找到后执行 return 停止本层后续查找, 同时 return 带出信息给上层使用
       path.unshift(node);
       return path;
     }
 
-    if (node.val === end.val) {
+    // 收到 travel 内部 return 信息后停止后续递归逻辑, 一直传递到顶层, 若无信息 travel 拿到 undefined
+    if (node.left && travel(node.left, path)) {
       path.unshift(node);
       return path;
     }
@@ -238,7 +243,7 @@ function lowestCommonAncestor(root, p, q) {
 
 // 最低的一层，叶子节点不一定是
 function isLastLayer(root, node) {
-  return depth(root) === route2(root, node).length;
+  return depth(root) === routeByDFS(root, node).length;
 }
 
 // 按满二叉树宽搜打印树内容，空节点补null
@@ -325,6 +330,6 @@ assert.strictEqual(
 assert.strictEqual(JSON.stringify(width(tree)), treeWidthList);
 
 assert.strictEqual(
-  JSON.stringify(route(tree, randomLeave).map((i) => i.val)),
-  JSON.stringify(route2(tree, randomLeave).map((i) => i.val))
+  JSON.stringify(routeByLink(tree, randomLeave).map((i) => i.val)),
+  JSON.stringify(routeByDFS(tree, randomLeave).map((i) => i.val))
 );
