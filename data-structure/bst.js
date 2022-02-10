@@ -206,9 +206,7 @@ class BinarySearchTree {
 
       const currentKey = current.getKey();
       if (currentKey < k || (includeEqual && currentKey === k)) {
-        if (lowerBound === null || lowerBound.getKey() <= currentKey) {
-          lowerBound = current;
-        }
+        lowerBound = current;
         return lowerBoundRecursive(current.getRight());
       }
 
@@ -231,9 +229,7 @@ class BinarySearchTree {
 
       const currentKey = current.getKey();
       if (currentKey > k || (includeEqual && currentKey === k)) {
-        if (upperBound === null || upperBound.getKey() >= currentKey) {
-          upperBound = current;
-        }
+        upperBound = current;
         return upperBoundRecursive(current.getLeft());
       }
 
@@ -317,6 +313,7 @@ class BinarySearchTree {
     return removeRecursively(key, this._root);
   }
 
+  // 排序
   traverseInOrder(cb) {
     if (typeof cb !== "function") {
       throw new Error(".traverseInOrder expects a callback function");
@@ -354,7 +351,7 @@ class Node {
     this.val = val;
     this.right = null;
     this.left = null;
-    this.count = 0;
+    this.count = 1;
   }
 }
 class BST {
@@ -364,6 +361,7 @@ class BST {
 
   create(val) {
     const newNode = new Node(val);
+    let added = false;
     if (!this.root) {
       this.root = newNode;
       return this;
@@ -373,12 +371,13 @@ class BST {
     const addSide = (side) => {
       if (!current[side]) {
         current[side] = newNode;
-        return this;
+        added = true;
+        return;
       }
       current = current[side];
     };
 
-    while (true) {
+    while (!added) {
       if (val === current.val) {
         current.count++;
         return this;
@@ -433,8 +432,9 @@ class BST {
     };
 
     const deleteNode = (side, isRoot) => {
-      if (current.val === val && current.count > 1) current.count--;
-      else if (current.val === val) {
+      if (current.val !== val) return;
+      if (current.count > 1) current.count--;
+      else {
         const children = this.BFS(current.val);
         if (isRoot) {
           this.root = null;
