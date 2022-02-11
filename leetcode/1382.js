@@ -31,11 +31,11 @@ function isValid(node) {
   return true;
 }
 
-function preOrder(root, list = []) {
+function InOrder(root, list = []) {
   if (!root) return list;
-  if (root.left) preOrder(root.left, list);
+  if (root.left) InOrder(root.left, list);
   list.push(root);
-  if (root.right) preOrder(root.right, list);
+  if (root.right) InOrder(root.right, list);
   return list;
 }
 
@@ -56,7 +56,7 @@ function build(list, root, side) {
 var balanceBST = function (root) {
   if (isValid(root)) return root;
 
-  const sortedList = preOrder(root).map((i) => {
+  const sortedList = InOrder(root).map((i) => {
     i.left = null;
     i.right = null;
     return i;
