@@ -247,11 +247,14 @@ function routeByDFS(root, end) {
 }
 
 function lowestCommonAncestor(root, p, q) {
+  // 当前信息足够可以返回结束
   if (root === null || root === p || root === q) {
     return root;
   }
+  // 信息不足, 分别从左右子树收集信息
   let left = lowestCommonAncestor(root.left, p, q);
   let right = lowestCommonAncestor(root.right, p, q);
+  // 收集完信息后处理和返回
   if (left && right) {
     return root;
   }
