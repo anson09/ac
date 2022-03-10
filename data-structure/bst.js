@@ -473,6 +473,7 @@ class BST {
     function travel(node) {
       node.left && travel(node.left);
 
+      if (i === k) return;
       if (++i === k) {
         val = node.val;
         return;
