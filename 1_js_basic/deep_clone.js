@@ -1,3 +1,17 @@
+/* test code */
+function testRunner(fn) {
+  const obj = { reg: /\w+/, prop: { number: 100 } };
+  obj.self = obj;
+
+  const clone = fn(obj);
+  clone.prop.number++;
+
+  console.log(obj, clone);
+}
+
+testRunner(deepClone);
+
+/*******/
 function deepClone(obj, hash = new WeakMap()) {
   if (obj instanceof Date) return new Date(obj);
   if (obj instanceof RegExp) return new RegExp(obj);
@@ -8,15 +22,10 @@ function deepClone(obj, hash = new WeakMap()) {
   hash.set(obj, cloneObj);
 
   for (let key in obj) {
-    if (obj.hasOwnProperty(key)) {
+    if (Object.hasOwn(obj, key)) {
       cloneObj[key] = deepClone(obj[key], hash);
     }
   }
+
   return cloneObj;
 }
-
-const obj = { name: /\w+/, address: { x: 100 } };
-obj.o = obj;
-const clone = deepClone(obj);
-obj.address.x = 200;
-console.log(obj, clone);
