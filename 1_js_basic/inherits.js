@@ -1,4 +1,9 @@
-// test code
+function inherits(Child, Parent) {
+  Child.prototype = Object.create(Parent.prototype);
+  Child.prototype.constructor = Child;
+}
+
+/* test code */
 function testRunner(fn) {
   function Staff(props) {
     this.name = props.name || "Unnamed";
@@ -22,9 +27,3 @@ function testRunner(fn) {
 }
 
 testRunner(inherits);
-
-/*****/
-function inherits(Child, Parent) {
-  Child.prototype = Object.create(Parent.prototype);
-  Child.prototype.constructor = Child;
-}

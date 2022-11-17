@@ -4,6 +4,6 @@ function reverse(promise) {
   );
 }
 
-module.exports = function promiseAny(iterable) {
+function promiseAny(iterable) {
   return reverse(Promise.all([...iterable].map(reverse)));
-};
+}

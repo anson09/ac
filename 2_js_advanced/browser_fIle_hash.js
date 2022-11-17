@@ -1,3 +1,4 @@
+// 使用浏览器 API 生成文件 SHA1 哈希值
 async function getFileHash() {
   const [fileHandle] = await showOpenFilePicker();
   const file = await fileHandle.getFile();
