@@ -1,19 +1,23 @@
-// 最大堆、最小堆、优先级队列、堆排序
+// 堆有最大堆/最小堆, 可用于实现优先级队列、堆排序
 
 class Heap {
-  #MAXHEAP; // MAXHEAP OR MINHEAP
+  #MAXHEAP;
   #data;
   #size;
 
   constructor(arr, maxHeap = true) {
-    this.#data = [null, ...arr];
-    this.#size = this.#data.length - 1; // 若size改写成get data.length 的方法，则不可直接控制堆大小
     this.#MAXHEAP = maxHeap;
+    this.#data = [...arr];
+    this.#size = this.#data.length; // 若size改写成get data.length 的方法，则不可直接控制堆大小, 因此和 data 属性分离开
     this.#build();
   }
 
+  get heapType() {
+    return this.#MAXHEAP ? "MAXHEAP" : "MINHEAP";
+  }
+
   get top() {
-    return this.#data[1];
+    return this.#data[0];
   }
 
   get data() {
@@ -28,16 +32,20 @@ class Heap {
     return this.#size; // 实例中只读
   }
 
-  #left(i) {
-    return 2 * i;
+  get #lastOne() {
+    return this.#size - 1;
   }
 
-  #right(i) {
+  #left(i) {
     return 2 * i + 1;
   }
 
+  #right(i) {
+    return 2 * i + 2;
+  }
+
   #parent(i) {
-    return Math.floor(i / 2);
+    return Math.floor((i - 1) / 2);
   }
 
   #comparer(parent, child) {
@@ -46,20 +54,18 @@ class Heap {
   }
 
   #swap(a, b) {
-    let tmp = this.#data[a];
-    this.#data[a] = this.#data[b];
-    this.#data[b] = tmp;
+    [this.#data[a], this.#data[b]] = [this.#data[b], this.#data[a]];
   }
 
   // O(logN)
   #sink(i) {
-    while (this.#left(i) <= this.#size) {
+    while (this.#left(i) <= this.#lastOne) {
       let top = i;
       if (!this.#comparer(top, this.#left(i))) {
         top = this.#left(i);
       }
       if (
-        this.#right(i) <= this.#size &&
+        this.#right(i) <= this.#lastOne &&
         !this.#comparer(top, this.#right(i))
       ) {
         top = this.#right(i);
@@ -72,7 +78,7 @@ class Heap {
 
   // O(logN)
   #swim(i) {
-    while (i > 1 && !this.#comparer(this.#parent(i), i)) {
+    while (i > 0 && !this.#comparer(this.#parent(i), i)) {
       this.#swap(this.#parent(i), i);
       i = this.#parent(i);
     }
@@ -80,16 +86,16 @@ class Heap {
 
   // O(N)
   #build() {
-    for (let i = this.#parent(this.#size); i >= 1; i--) {
+    for (let i = this.#parent(this.#lastOne); i >= 0; i--) {
       this.#sink(i);
     }
   }
 
   popTop() {
-    this.#swap(1, this.#size);
+    this.#swap(0, this.#lastOne);
     let top = this.#data.pop();
     this.#size--;
-    this.#sink(1);
+    this.#sink(0);
     return top;
   }
 
@@ -97,22 +103,22 @@ class Heap {
     this.#data.push(i);
     this.#size++;
 
-    this.#swim(this.#size);
+    this.#swim(this.#lastOne);
   }
 
   clear() {
-    this.#data = [null];
+    this.#data = [];
     this.#size = 0;
   }
 
-  isValid(root = 1) {
-    if (root < 1 || root > this.#size) return false;
+  isValid(root = 0) {
+    if (root < 0 || root > this.#lastOne) return false;
 
     // 可返回成功情况：自己或子节点是叶子结点
-    if (this.#left(root) > this.#size) return true;
+    if (this.#left(root) > this.#lastOne) return true;
     if (
       this.#comparer(root, this.#left(root)) &&
-      this.#right(root) > this.#size
+      this.#right(root) > this.#lastOne
     )
       return true;
 
@@ -129,14 +135,14 @@ class Heap {
 
   // O(NlogN)
   sort() {
-    const size = this.#size;
-    while (this.#size > 1) {
-      this.#swap(1, this.#size);
+    const size = this.size;
+    while (this.size > 1) {
+      this.#swap(0, this.#lastOne);
       this.#size--;
-      this.#sink(1);
+      this.#sink(0);
     }
+    const sortResult = this.#data.slice(0, size);
     this.#size = size;
-    const sortResult = this.#data.slice(1, this.#size + 1);
     this.#build();
     return sortResult;
   }
@@ -144,6 +150,6 @@ class Heap {
 
 const arr = [15, 12, 8, 2, 5, 2, 3, 4, 7];
 const heap = new Heap(arr);
-console.log(heap.data);
+console.log(heap.isValid());
 heap.insert(6);
 console.log(heap.sort());
