@@ -1,6 +1,3 @@
-const listGenetator = (number) =>
-  new Array(number).fill(null).map((i) => Math.floor(Math.random() * 100));
-
 class Node {
   constructor(val) {
     this.val = val;
@@ -8,7 +5,25 @@ class Node {
   }
 }
 
-//* DFS思路 前中序、后中序可还原树，前后序信息不足
+// BFS思路建完全二叉树
+function create(list) {
+  const arr = [...list];
+  const queue = [];
+  const root = new Node(arr.shift());
+  queue.push(root);
+  while (arr.length) {
+    const node = queue.shift();
+    node.left = new Node(arr.shift());
+    queue.push(node.left);
+    if (arr.length) {
+      node.right = new Node(arr.shift());
+      queue.push(node.right);
+    }
+  }
+  return root;
+}
+
+// DFS思路 前中序、后中序可还原树，前后序信息不足
 // 前中序还原二叉树
 function restoreTree(preorder, inorder) {
   if (!preorder || preorder.length < 1) {
@@ -32,26 +47,9 @@ function restoreTree(preorder, inorder) {
   return treeNode;
 }
 
-// BFS思路建完全二叉树
-function create(list) {
-  const arr = [...list];
-  const queue = [];
-  const root = new Node(arr.shift());
-  queue.push(root);
-  while (arr.length) {
-    const node = queue.shift();
-    node.left = new Node(arr.shift());
-    queue.push(node.left);
-    if (arr.length) {
-      node.right = new Node(arr.shift());
-      queue.push(node.right);
-    }
-  }
-  return root;
-}
-
-//* bfs dfs 本质区别是使用队列还是栈, 递归只是用了系统的栈
+// BFS、DFS 本质区别是使用队列还是栈, 递归只是用了系统的栈
 function bfs(root) {
+  if (!root) return;
   const visit = [];
   const queue = [];
   queue.push(root);
@@ -61,6 +59,42 @@ function bfs(root) {
     if (node.left) queue.push(node.left);
     if (node.right) queue.push(node.right);
   }
+  return visit;
+}
+
+function dfsPreOrder(root) {
+  const visit = [];
+  function traverse(node) {
+    if (!node) return;
+    visit.push(node.val);
+    if (node.left) traverse(node.left);
+    if (node.right) traverse(node.right);
+  }
+  traverse(root);
+  return visit;
+}
+
+function dfsInOrder(root) {
+  const visit = [];
+  function traverse(node) {
+    if (!node) return;
+    if (node.left) traverse(node.left);
+    visit.push(node.val);
+    if (node.right) traverse(node.right);
+  }
+  traverse(root);
+  return visit;
+}
+
+function dfsPostOrder(root) {
+  const visit = [];
+  function traverse(node) {
+    if (!node) return;
+    if (node.left) traverse(node.left);
+    if (node.right) traverse(node.right);
+    visit.push(node.val);
+  }
+  traverse(root);
   return visit;
 }
 
@@ -106,39 +140,6 @@ function dfsPostOrderLoop(root) {
   return visit.reverse();
 }
 
-function dfsPreOrder(root) {
-  const visit = [];
-  function traverse(node) {
-    visit.push(node.val);
-    if (node.left) traverse(node.left);
-    if (node.right) traverse(node.right);
-  }
-  traverse(root);
-  return visit;
-}
-
-function dfsInOrder(root) {
-  const visit = [];
-  function traverse(node) {
-    if (node.left) traverse(node.left);
-    visit.push(node.val);
-    if (node.right) traverse(node.right);
-  }
-  traverse(root);
-  return visit;
-}
-
-function dfsPostOrder(root) {
-  const visit = [];
-  function traverse(node) {
-    if (node.left) traverse(node.left);
-    if (node.right) traverse(node.right);
-    visit.push(node.val);
-  }
-  traverse(root);
-  return visit;
-}
-
 function depth(root) {
   if (!root) return 0;
   const leftDepth = depth(root.left);
@@ -171,15 +172,13 @@ function width(root) {
 // 镜面反转二叉树
 function rotate(root) {
   if (!root) return;
-  let tmp = root.left;
-  root.left = root.right;
-  root.right = tmp;
+  [root.left, root.right] = [root.right, root.left];
   rotate(root.left);
   rotate(root.right);
 }
 
-// 获取根结点到任意节点的路径，构建反向连接
-// 获得任意两条根到节点连接, 连接头部去重后连接上就是两节点的最短路, 头部开始最后一个相同节点就是两条连接的最近公共父亲
+// 通过构建反向连接，获取根结点到任意节点的路径
+// 获得任意两条路径, 路径头部节点序列去重后连接上就是两节点的最短路, 头部开始最后一个相同节点就是两条连接的最近公共父亲
 function routeByLink(root, end) {
   const path = [];
 
@@ -209,6 +208,7 @@ function routeByStack(root, end) {
   let found = false;
 
   function travel(root) {
+    if (!root) return;
     path.push(root);
     if (root === end) found = true;
     if (!found && root.left) travel(root.left);
@@ -225,8 +225,9 @@ function routeByDFS(root, end) {
   return travel(root);
 
   function travel(node, path = []) {
+    if (!node) return;
     // 前中后序皆可, 节点满足条件时才执行逻辑
-    if (node.val === end.val) {
+    if (node === end) {
       // 基础深搜变形版本, 大部分算法都是基础版本变形
       // 深搜查找元素 找到后执行 return 停止本层后续查找, 同时 return 带出信息给上层使用
       path.unshift(node);
@@ -270,24 +271,23 @@ function isLastLayer(root, node) {
 function bfsPrint(root) {
   let array = [];
   let queue = [];
-  let current = null;
 
   queue.push(root);
 
   while (queue.length) {
-    current = queue.shift();
+    const current = queue.shift();
     array.push(current.val);
 
     if (current.left) {
       queue.push(current.left);
     } else if (!isLastLayer(root, current)) {
-      current.left = new TreeNode();
+      current.left = new Node();
       queue.push(current.left);
     }
     if (current.right) {
       queue.push(current.right);
     } else if (!isLastLayer(root, current)) {
-      current.right = new TreeNode();
+      current.right = new Node();
       queue.push(current.right);
     }
   }
@@ -295,15 +295,17 @@ function bfsPrint(root) {
   return array;
 }
 
-/* test part */
+/* test code */
+
 const assert = require("assert").strict;
-const nodeCount = 20;
-const list = listGenetator(nodeCount);
+const NODECOUNT = 20;
+const listGenetator = (number) =>
+  Array.from({ length: number }, () => Math.floor(Math.random() * 100));
+const list = listGenetator(NODECOUNT);
 const tree = create(list);
 
 const treeWidthList = ((nodeCount) => {
   const list = [];
-  let i = 0;
   while (nodeCount > 0) {
     const width = 2 ** list.length;
     if (nodeCount >= width) {
@@ -313,12 +315,11 @@ const treeWidthList = ((nodeCount) => {
       list.push(nodeCount);
       break;
     }
-    i++;
   }
   return JSON.stringify(list);
-})(nodeCount);
+})(NODECOUNT);
 
-const randomLeave = ((root) => {
+const randomLeaf = ((root) => {
   while (true) {
     const direction = Math.random() > 0.5 ? "left" : "right";
 
@@ -345,15 +346,15 @@ assert.strictEqual(
 
 assert.strictEqual(
   depth(tree),
-  Math.ceil(Math.log(nodeCount + 1) / Math.log(2))
+  Math.ceil(Math.log(NODECOUNT + 1) / Math.log(2))
 );
 assert.strictEqual(JSON.stringify(width(tree)), treeWidthList);
 
 assert.strictEqual(
-  JSON.stringify(routeByLink(tree, randomLeave).map((i) => i.val)),
-  JSON.stringify(routeByStack(tree, randomLeave).map((i) => i.val))
+  JSON.stringify(routeByLink(tree, randomLeaf).map((i) => i.val)),
+  JSON.stringify(routeByStack(tree, randomLeaf).map((i) => i.val))
 );
 assert.strictEqual(
-  JSON.stringify(routeByLink(tree, randomLeave).map((i) => i.val)),
-  JSON.stringify(routeByDFS(tree, randomLeave).map((i) => i.val))
+  JSON.stringify(routeByLink(tree, randomLeaf).map((i) => i.val)),
+  JSON.stringify(routeByDFS(tree, randomLeaf).map((i) => i.val))
 );

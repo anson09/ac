@@ -1,12 +1,12 @@
 // 递归版本
-function flatten(arr) {
+function flattenByRecursion(arr) {
   return arr.reduce((prev, next) => {
     return prev.concat(Array.isArray(next) ? flatten(next) : next);
   }, []);
 }
 
 // 循环版本
-function flatten(arr) {
+function flattenByLoop(arr) {
   while (arr.some((item) => Array.isArray(item))) {
     arr = [].concat(...arr);
   }
@@ -14,7 +14,7 @@ function flatten(arr) {
 }
 
 // 控制层数版本
-function flatten(arr, count) {
+function flattenLimitedByLoop(arr, count) {
   while (arr.some((item) => Array.isArray(item) && count-- > 0)) {
     arr = [].concat(...arr);
   }
