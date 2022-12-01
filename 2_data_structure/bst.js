@@ -91,6 +91,19 @@ class BinarySearchTree {
     this._count = 0;
   }
 
+  root() {
+    return this._root;
+  }
+
+  count() {
+    return this._count;
+  }
+
+  clear() {
+    this._root = null;
+    this._count = 0;
+  }
+
   insert(key, value) {
     const newNode = new BinarySearchTreeNode(key, value);
     const insertRecursive = (current) => {
@@ -109,6 +122,7 @@ class BinarySearchTree {
           this._count += 1;
         }
       } else {
+        // 相同 key 覆盖，bst 不会创建重复节点
         current.setValue(value);
       }
     };
@@ -239,14 +253,6 @@ class BinarySearchTree {
     return upperBoundRecursive(this._root);
   }
 
-  root() {
-    return this._root;
-  }
-
-  count() {
-    return this._count;
-  }
-
   remove(key) {
     const removeRecursively = (k, current) => {
       if (current === null) {
@@ -328,12 +334,149 @@ class BinarySearchTree {
 
     traverseRecursive(this._root);
   }
+}
 
-  clear() {
-    this._root = null;
-    this._count = 0;
+// simple version with loop
+class Node {
+  constructor(val) {
+    this.val = val;
+    this.right = null;
+    this.left = null;
+    this.count = 1; // 重复节点计数, 也可忽略不维护此属性
   }
 }
+class BST {
+  constructor() {
+    this.root = null;
+  }
+
+  create(val) {
+    const newNode = new Node(val);
+    let current = this.root;
+
+    if (!this.root) {
+      this.root = newNode;
+      return this;
+    }
+
+    while (true) {
+      if (val === current.val) {
+        current.count++;
+        return this;
+      }
+      if (val < current.val) {
+        if (!current.left) {
+          current.left = newNode;
+          return this;
+        } else current = current.left;
+      } else {
+        if (!current.right) {
+          current.right = newNode;
+          return this;
+        } else current = current.right;
+      }
+    }
+  }
+
+  find(val) {
+    if (!this.root) return null;
+    let current = this.root;
+
+    while (current) {
+      if (val < current.val) current = current.left;
+      else if (val > current.val) current = current.right;
+      else break;
+    }
+
+    if (current?.val === val) return current;
+    return null;
+  }
+
+  BFS(start) {
+    const data = [];
+    const queue = [];
+    let current = start ? this.find(start) : this.root;
+
+    queue.push(current);
+    while (queue.length) {
+      current = queue.shift();
+      data.push(current);
+
+      if (current.left) queue.push(current.left);
+      if (current.right) queue.push(current.right);
+    }
+
+    return data;
+  }
+
+  delete(val) {
+    if (!this.root) return false;
+    let current = this.root;
+    let parent;
+
+    const deleteCurrent = (isRoot) => {
+      if (current.count > 1) {
+        current.count--;
+        return;
+      }
+      const children = this.BFS(current.val); // bfs need do before subtree be detached
+      if (isRoot) {
+        this.root = null;
+      } else if (current.val < parent.val) {
+        parent.left = null;
+      } else {
+        parent.right = null;
+      }
+      children.slice(1).forEach((child) => {
+        for (let i = 0; i < child.count; i++) {
+          this.create(child.val);
+        }
+      });
+    };
+
+    // isRoot
+    if (current.val === val) {
+      deleteCurrent(true);
+      return current;
+    }
+
+    while (current) {
+      if (val < current.val) {
+        parent = current;
+        current = current.left;
+      } else if (val > current.val) {
+        parent = current;
+        current = current.right;
+      } else break;
+    }
+
+    if (current?.val === val) {
+      deleteCurrent();
+      return current;
+    }
+    return false;
+  }
+
+  // k = 1 means the smallest
+  kthSmallest(k) {
+    let i = 0;
+    let val = null;
+    travel(this.root);
+    return val;
+
+    function travel(node) {
+      if (node.left) travel(node.left);
+      if (val) return; // stop both here and parent travelling
+      if (++i === k) {
+        val = node.val;
+        return;
+      }
+      if (node.right) travel(node.right);
+    }
+  }
+}
+
+/* test code */
 
 const bst = new BinarySearchTree();
 bst.insert(50, "v1");
@@ -344,145 +487,6 @@ bst.insert(60, "v5");
 bst.insert(40, "v6");
 bst.insert(20, "v7");
 console.log(bst.lowerBound(50).getKey());
-
-// simple version with loop
-class Node {
-  constructor(val) {
-    this.val = val;
-    this.right = null;
-    this.left = null;
-    this.count = 1;
-  }
-}
-class BST {
-  constructor() {
-    this.root = null;
-  }
-
-  create(val) {
-    const newNode = new Node(val);
-    let added = false;
-    if (!this.root) {
-      this.root = newNode;
-      return this;
-    }
-    let current = this.root;
-
-    const addSide = (side) => {
-      if (!current[side]) {
-        current[side] = newNode;
-        added = true;
-        return;
-      }
-      current = current[side];
-    };
-
-    while (!added) {
-      if (val === current.val) {
-        current.count++;
-        return this;
-      }
-      if (val < current.val) addSide("left");
-      else addSide("right");
-    }
-  }
-
-  find(val) {
-    if (!this.root) return undefined;
-    let current = this.root,
-      found = false;
-
-    while (current && !found) {
-      if (val < current.val) current = current.left;
-      else if (val > current.val) current = current.right;
-      else found = true;
-    }
-
-    if (!found) return "Nothing Found!";
-    return current;
-  }
-
-  BFS(start) {
-    let data = [],
-      queue = [],
-      current = start ? this.find(start) : this.root;
-
-    queue.push(current);
-    while (queue.length) {
-      current = queue.shift();
-      data.push(current.val);
-
-      if (current.left) queue.push(current.left);
-      if (current.right) queue.push(current.right);
-    }
-
-    return data;
-  }
-
-  delete(val) {
-    if (!this.root) return undefined;
-    let current = this.root,
-      parent;
-
-    const pickSide = (side) => {
-      if (!current[side]) return "No node found!";
-
-      parent = current;
-      current = current[side];
-    };
-
-    const deleteNode = (side, isRoot) => {
-      if (current.val !== val) return;
-      if (current.count > 1) current.count--;
-      else {
-        const children = this.BFS(current.val);
-        if (isRoot) {
-          this.root = null;
-        } else {
-          parent[side] = null;
-        }
-        children.splice(0, 1);
-        children.forEach((child) => this.create(child));
-      }
-    };
-
-    // isRoot
-    if (current.val === val) {
-      deleteNode(null, true);
-    }
-
-    while (current.val !== val) {
-      if (val < current.val) {
-        pickSide("left");
-        deleteNode("left");
-      } else {
-        pickSide("right");
-        deleteNode("right");
-      }
-    }
-
-    return current;
-  }
-
-  kthSmallest(k) {
-    let i = 0;
-    let val = null;
-    travel(this.root);
-    return val;
-
-    function travel(node) {
-      node.left && travel(node.left);
-
-      if (i === k) return;
-      if (++i === k) {
-        val = node.val;
-        return;
-      }
-
-      node.right && travel(node.right);
-    }
-  }
-}
 
 let tree = new BST();
 tree.create(10);

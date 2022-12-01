@@ -30,8 +30,7 @@ class DirectedGraph {
     return this._vertices.size;
   }
 
-  // default weight is 1
-  addEdge(srcKey, destKey, weight) {
+  addEdge(srcKey, destKey, weight = 1) {
     if (!this._vertices.has(srcKey)) {
       throw new Error(`addEdge: vertex "${srcKey}" not found`);
     }
@@ -40,12 +39,13 @@ class DirectedGraph {
       throw new Error(`addEdge: vertex "${destKey}" not found`);
     }
 
-    if (weight !== undefined && typeof weight !== "number") {
+    if (typeof weight !== "number") {
       throw new Error("addEdge: expects a numberic weight");
     }
 
-    const w = weight ?? 1;
-    this._edges.get(srcKey).set(destKey, w);
+    if (srcKey === destKey) return this;
+
+    this._edges.get(srcKey).set(destKey, weight);
     this._edgesCount += 1;
     return this;
   }
@@ -110,7 +110,7 @@ class DirectedGraph {
       cb(key, this._vertices.get(key));
       visited.add(key);
 
-      this._edges.get(key).forEach((weight, destKey) => {
+      this._edges.get(key).forEach((_, destKey) => {
         traverseDfsRecursive(destKey, visited);
       });
     };
@@ -126,7 +126,7 @@ class DirectedGraph {
     while (queue.length) {
       const nextKey = queue.pop();
       cb(nextKey, this._vertices.get(nextKey));
-      this._edges.get(nextKey).forEach((weight, destKey) => {
+      this._edges.get(nextKey).forEach((_, destKey) => {
         if (!visited.has(destKey)) {
           queue.unshift(destKey);
           visited.add(destKey);
@@ -151,13 +151,8 @@ class DirectedGraph {
 
     return allPath;
 
-    function _clone(arr) {
-      return JSON.parse(JSON.stringify(arr));
-    }
-
     function traverseDfsRecursive(current, path = []) {
-      if (!current) return;
-      if (path.length !== 0 && path.includes(current)) return;
+      if (!current || path.includes(current)) return;
 
       path.push(current);
 
@@ -166,8 +161,8 @@ class DirectedGraph {
         return;
       }
 
-      this._edges.get(current).forEach((weight, destKey) => {
-        traverseDfsRecursive.call(this, destKey, _clone(path));
+      this._edges.get(current).forEach((_, destKey) => {
+        traverseDfsRecursive.call(this, destKey, structuredClone(path));
       });
     }
   }
@@ -180,7 +175,7 @@ class Graph extends DirectedGraph {
 
     let removedEdgesCount = 0;
 
-    this._edges.get(key).forEach((weight, destKey) => {
+    this._edges.get(key).forEach((_, destKey) => {
       this.removeEdge(key, destKey);
       removedEdgesCount += 1;
     });

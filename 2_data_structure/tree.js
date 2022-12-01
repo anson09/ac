@@ -304,6 +304,10 @@ const listGenetator = (number) =>
 const list = listGenetator(NODECOUNT);
 const tree = create(list);
 
+// 层数
+const treeDepth = Math.ceil(Math.log(NODECOUNT + 1) / Math.log(2));
+
+// 每层宽度
 const treeWidthList = ((nodeCount) => {
   const list = [];
   while (nodeCount > 0) {
@@ -319,6 +323,7 @@ const treeWidthList = ((nodeCount) => {
   return JSON.stringify(list);
 })(NODECOUNT);
 
+// 生成随机叶子节点
 const randomLeaf = ((root) => {
   while (true) {
     const direction = Math.random() > 0.5 ? "left" : "right";
@@ -344,10 +349,7 @@ assert.strictEqual(
   JSON.stringify(dfsPostOrder(tree))
 );
 
-assert.strictEqual(
-  depth(tree),
-  Math.ceil(Math.log(NODECOUNT + 1) / Math.log(2))
-);
+assert.strictEqual(depth(tree), treeDepth);
 assert.strictEqual(JSON.stringify(width(tree)), treeWidthList);
 
 assert.strictEqual(

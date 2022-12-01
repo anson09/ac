@@ -63,8 +63,8 @@ class TrieNode {
 class Trie {
   constructor() {
     this._root = new TrieNode("");
-    this._wordsCount = 0;
     this._nodesCount = 1; // root node
+    this._wordsCount = 0;
   }
 
   insert(value) {
@@ -152,7 +152,8 @@ class Trie {
       return null;
     }
 
-    if (currentNode.childrenCount() > 0 || word === "") {
+    // word could be empty string
+    if (currentNode.childrenCount() > 0 || currentNode.isRoot()) {
       currentNode.setEndOfWord(false);
       this._wordsCount -= 1;
       return word;
@@ -216,6 +217,8 @@ class Trie {
     return trie;
   }
 }
+
+/* test code */
 
 const assert = require("assert").strict;
 
