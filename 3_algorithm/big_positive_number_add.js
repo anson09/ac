@@ -1,5 +1,5 @@
 // 大正数相加
-const assert = require("assert").strict;
+const assert = require("node:assert/strict");
 
 function integerAdd(a, b) {
   const sa = a.split("").map(Number).reverse();
@@ -26,8 +26,7 @@ function integerAdd(a, b) {
     .join("");
 }
 
-assert.strictEqual(integerAdd("1", "9999"), integerAdd("10", "9990"));
-console.log("integer pass");
+assert.equal(integerAdd("1", "9999"), integerAdd("10", "9990"));
 
 function add(a, b) {
   let [ai, ad] = a.split(".");
@@ -52,7 +51,6 @@ function add(a, b) {
   );
 }
 
-assert.strictEqual(add("1.001", "1.999"), "3");
-assert.strictEqual(add("0.1", "1.999"), "2.099");
-assert.strictEqual(add("111.001", "0.009"), "111.01");
-console.log("float pass");
+assert.equal(add("1.001", "1.999"), "3");
+assert.equal(add("0.1", "1.999"), "2.099");
+assert.equal(add("111.001", "0.009"), "111.01");

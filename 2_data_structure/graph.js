@@ -198,6 +198,9 @@ class Graph extends DirectedGraph {
   }
 }
 
+/* test code */
+const assert = require("node:assert/strict");
+
 const directedGraph = new DirectedGraph();
 directedGraph
   .addVertex("v1", 1)
@@ -218,16 +221,20 @@ directedGraph.traverseDfs("v1", (key, value) =>
   console.log(`${key}: ${value}`)
 );
 
-console.log(directedGraph.getAllPath("v1", "v4"));
+assert.deepEqual(directedGraph.getAllPath("v1", "v4"), [
+  ["v1", "v2", "v4"],
+  ["v1", "v3", "v5", "v2", "v4"],
+  ["v1", "v3", "v4"],
+]);
 
 const graph = new Graph();
 
 graph
-  .addVertex("v1", true)
-  .addVertex("v2", true)
-  .addVertex("v3", true)
-  .addVertex("v4", true)
-  .addVertex("v5", true);
+  .addVertex("v1", 1)
+  .addVertex("v2", 2)
+  .addVertex("v3", 3)
+  .addVertex("v4", 4)
+  .addVertex("v5", 5);
 
 graph
   .addEdge("v1", "v2", 2)
@@ -238,6 +245,6 @@ graph
   .addEdge("v4", "v5", 4)
   .addEdge("v3", "v5", 2);
 
-console.log(graph.getEdgesCount());
-console.log(graph.removeEdges("v2"));
-console.log(graph.getEdgesCount());
+assert.equal(graph.getEdgesCount(), 7);
+assert.equal(graph.removeEdges("v2"), 3);
+assert.equal(graph.getEdgesCount(), 4);

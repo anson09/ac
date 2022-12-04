@@ -148,8 +148,11 @@ class Heap {
 }
 
 /* test code */
+const assert = require("node:assert/strict");
+
 const arr = [15, 12, 8, 2, 5, 2, 3, 4, 7];
 const heap = new Heap(arr);
-console.log(heap.isValid());
+
+assert.equal(heap.isValid(), true);
 heap.insert(6);
-console.log(heap.sort());
+assert.deepEqual(heap.sort(), [2, 2, 3, 4, 5, 6, 7, 8, 12, 15]);

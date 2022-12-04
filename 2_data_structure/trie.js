@@ -219,13 +219,12 @@ class Trie {
 }
 
 /* test code */
-
-const assert = require("assert").strict;
+const assert = require("node:assert/strict");
 
 const dictionary = new Trie();
 dictionary.insert("hi").insert("hit");
 dictionary.remove("hit");
 
-assert.strictEqual(dictionary.has("hit"), false);
-assert.strictEqual(dictionary.has("hi"), true);
-assert.strictEqual(dictionary.remove("h"), null);
+assert.equal(dictionary.has("hit"), false);
+assert.equal(dictionary.has("hi"), true);
+assert.ifError(dictionary.remove("h"));

@@ -296,8 +296,8 @@ function bfsPrint(root) {
 }
 
 /* test code */
+const assert = require("node:assert/strict");
 
-const assert = require("assert").strict;
 const NODECOUNT = 20;
 const listGenetator = (number) =>
   Array.from({ length: number }, () => Math.floor(Math.random() * 100));
@@ -320,7 +320,7 @@ const treeWidthList = ((nodeCount) => {
       break;
     }
   }
-  return JSON.stringify(list);
+  return list;
 })(NODECOUNT);
 
 // 生成随机叶子节点
@@ -334,29 +334,20 @@ const randomLeaf = ((root) => {
   return root;
 })(tree);
 
-assert.strictEqual(JSON.stringify(bfs(tree)), JSON.stringify(list));
+assert.deepEqual(bfs(tree), list);
 
-assert.strictEqual(
-  JSON.stringify(dfsPreOrderLoop(tree)),
-  JSON.stringify(dfsPreOrder(tree))
-);
-assert.strictEqual(
-  JSON.stringify(dfsInOrderLoop(tree)),
-  JSON.stringify(dfsInOrder(tree))
-);
-assert.strictEqual(
-  JSON.stringify(dfsPostOrderLoop(tree)),
-  JSON.stringify(dfsPostOrder(tree))
-);
+assert.deepEqual(dfsPreOrderLoop(tree), dfsPreOrder(tree));
+assert.deepEqual(dfsInOrderLoop(tree), dfsInOrder(tree));
+assert.deepEqual(dfsPostOrderLoop(tree), dfsPostOrder(tree));
 
-assert.strictEqual(depth(tree), treeDepth);
-assert.strictEqual(JSON.stringify(width(tree)), treeWidthList);
+assert.equal(depth(tree), treeDepth);
+assert.deepEqual(width(tree), treeWidthList);
 
-assert.strictEqual(
-  JSON.stringify(routeByLink(tree, randomLeaf).map((i) => i.val)),
-  JSON.stringify(routeByStack(tree, randomLeaf).map((i) => i.val))
+assert.deepEqual(
+  routeByLink(tree, randomLeaf).map((i) => i.val),
+  routeByStack(tree, randomLeaf).map((i) => i.val)
 );
-assert.strictEqual(
-  JSON.stringify(routeByLink(tree, randomLeaf).map((i) => i.val)),
-  JSON.stringify(routeByDFS(tree, randomLeaf).map((i) => i.val))
+assert.deepEqual(
+  routeByLink(tree, randomLeaf).map((i) => i.val),
+  routeByDFS(tree, randomLeaf).map((i) => i.val)
 );

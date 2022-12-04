@@ -477,6 +477,7 @@ class BST {
 }
 
 /* test code */
+const assert = require("node:assert/strict");
 
 const bst = new BinarySearchTree();
 bst.insert(50, "v1");
@@ -486,9 +487,10 @@ bst.insert(90, "v4");
 bst.insert(60, "v5");
 bst.insert(40, "v6");
 bst.insert(20, "v7");
-console.log(bst.lowerBound(50).getKey());
 
-let tree = new BST();
+assert.equal(bst.lowerBound(50).getKey(), 50);
+
+const tree = new BST();
 tree.create(10);
 tree.create(4);
 tree.create(4);
