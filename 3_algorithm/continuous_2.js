@@ -1,27 +1,3 @@
-// 输入是 1,2,3,5,7,8,10 输出要求是 1~3 5 7~8 10
-
-function continuous(...args) {
-  let out = "";
-  let mark = false;
-  for (let i = 0; i < args.length; i++) {
-    out += args[i];
-
-    while (i + 1 < args.length && args[i + 1] === args[i] + 1) {
-      i++;
-      mark = true;
-    }
-    if (mark === true) {
-      mark = false;
-      out = out + "~" + args[i];
-    }
-    out += " ";
-  }
-
-  return out.trim();
-}
-
-console.log(continuous(1, 2, 3, 5, 7, 8, 10));
-
 // 将48位的时间位图格式化成字符串
 
 // 要求：写一个函数timeBitmapToRanges，将下述规则描述的时间位图转换成一个选中时间区间的数组。
@@ -34,8 +10,8 @@ console.log(continuous(1, 2, 3, 5, 7, 8, 10));
 
 // 示例输出：["00:00~01:00", "02:00~02:30"]
 
-function transfer(loc) {
-  if (loc < 0 || loc > 48) return -1;
+function _transfer(loc) {
+  if (loc < 0 || loc > 48) return null; // 下标只有 0-47，但需支持 48 取 24:00 计算
   let hour = Math.floor(loc / 2)
     .toString()
     .padStart(2, "0");
@@ -49,16 +25,20 @@ function timeBitmapToRanges(timeString) {
 
   for (let i = 0; i < timeString.length; i++) {
     if (timeString[i] !== "1") continue;
-    ranges = transfer(i) + "~"; // reset ranges
+    ranges = _transfer(i) + "~"; // reset ranges
     while (i + 1 < 48 && timeString[i + 1] === "1") {
       i++;
     }
-    ranges += transfer(++i);
+    ranges += _transfer(++i); //经过 while 后 ++i 未到 48 位时值必是 0，可以取 endtime 并 continue 一位
     out.push(ranges);
   }
   return out;
 }
 
-console.log(
-  timeBitmapToRanges("110010000000000000000000000000000000000000011101")
+/* test code */
+const assert = require("node:assert/strict");
+
+assert.deepEqual(
+  timeBitmapToRanges("110010000000000000000000000000000000000000011101"),
+  ["00:00~01:00", "02:00~02:30", "21:30~23:00", "23:30~24:00"]
 );
