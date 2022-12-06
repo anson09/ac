@@ -1,4 +1,4 @@
-// https://leetcode-cn.com/problems/balance-a-binary-search-tree/
+// https://leetcode.cn/problems/balance-a-binary-search-tree/
 
 /**
  * Definition for a binary tree node.
