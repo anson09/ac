@@ -10,3 +10,15 @@ function throttle(fn, time) {
     }, time);
   };
 }
+
+function throttleLeadingEdge(fn, time) {
+  let canRun = true;
+  return function () {
+    if (!canRun) return;
+    canRun = false;
+    fn(...arguments);
+    timeout = setTimeout(() => {
+      canRun = true;
+    }, time);
+  };
+}
