@@ -17,3 +17,14 @@ function fibonacciCacheBetter(i, a = 0, b = 1) {
   if (i === 2) return a + b;
   return fibonacciCacheBetter(i - 1, b, a + b);
 }
+
+// time O(n) space O(1)
+function fibonacciCacheBest(i) {
+  if (i === 0 || i === 1) return i;
+  let a = 0;
+  let b = 1;
+  for (let j = 2; j <= i; j++) {
+    [a, b] = [b, a + b];
+  }
+  return b;
+}
