@@ -8,6 +8,6 @@ var singleNumber = function (nums) {
 };
 
 // version 2
-var singleNumber2 = function (nums) {
+var singleNumber = function (nums) {
   return nums.reduce((pre, cur) => (pre ^= cur));
 };

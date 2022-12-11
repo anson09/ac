@@ -1,4 +1,4 @@
-// time O(2^n) space O(n)
+// time O(2^n) space O(2^n)
 function fibonacci(i) {
   if (i === 0 || i === 1) return i;
   return fibonacci(i - 1) + fibonacci(i - 2);
