@@ -67,8 +67,8 @@ function dfsPreOrder(root) {
   function traverse(node) {
     if (!node) return;
     visit.push(node.val);
-    if (node.left) traverse(node.left);
-    if (node.right) traverse(node.right);
+    traverse(node.left);
+    traverse(node.right);
   }
   traverse(root);
   return visit;
@@ -78,9 +78,9 @@ function dfsInOrder(root) {
   const visit = [];
   function traverse(node) {
     if (!node) return;
-    if (node.left) traverse(node.left);
+    traverse(node.left);
     visit.push(node.val);
-    if (node.right) traverse(node.right);
+    traverse(node.right);
   }
   traverse(root);
   return visit;
@@ -90,8 +90,8 @@ function dfsPostOrder(root) {
   const visit = [];
   function traverse(node) {
     if (!node) return;
-    if (node.left) traverse(node.left);
-    if (node.right) traverse(node.right);
+    traverse(node.left);
+    traverse(node.right);
     visit.push(node.val);
   }
   traverse(root);
