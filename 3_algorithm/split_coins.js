@@ -2,6 +2,9 @@
 一堆硬币，面值可以是从1到500的任意整数，将他们分成两堆，求两堆面值总和的最小差值
 比如 [3,4,5], 那么最小差值是 2
 */
+
+// time O(n^2*n!)
+// space O(n^2)
 function minDiff(arr) {
   const half = arr.reduce((a, b) => a + b) / 2;
   let max = 0;

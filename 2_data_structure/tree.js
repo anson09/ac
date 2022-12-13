@@ -211,8 +211,8 @@ function routeByStack(root, end) {
     if (!root) return;
     path.push(root);
     if (root === end) found = true;
-    if (!found && root.left) travel(root.left);
-    if (!found && root.right) travel(root.right);
+    if (!found) travel(root.left);
+    if (!found) travel(root.right);
     if (!found) path.pop(root);
   }
 
@@ -235,12 +235,12 @@ function routeByDFS(root, end) {
     }
 
     // 收到 travel 内部 return 信息后停止后续递归逻辑, 一直传递到顶层, 若无信息 travel 拿到 undefined
-    if (node.left && travel(node.left, path)) {
+    if (travel(node.left, path)) {
       path.unshift(node);
       return path;
     }
 
-    if (node.right && travel(node.right, path)) {
+    if (travel(node.right, path)) {
       path.unshift(node);
       return path;
     }
