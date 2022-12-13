@@ -1,4 +1,5 @@
-// time O(2^n) space O(2^n)
+// time O(2^n)
+// space O(n), because tree height is n, space is releasing then malloc when dfs traverse, occupied in meantime is depth at most
 function fibonacci(i) {
   if (i === 0 || i === 1) return i;
   return fibonacci(i - 1) + fibonacci(i - 2);

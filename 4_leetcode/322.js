@@ -2,7 +2,7 @@
 
 // k is the number of coins, n is the amount
 // time O(k^n)
-// space O(k^n)
+// space O(n)
 var coinChange = function (coins, amount) {
   if (amount === 0) return 0;
   if (amount < 0) return -1;
@@ -17,7 +17,7 @@ var coinChange = function (coins, amount) {
 
 // version 2 top-down dp
 // time O(kn)
-// space O(kn)
+// space O(n)
 var coinChange = function (coins, amount, memo = {}) {
   if (amount === 0) return 0;
   if (amount < 0) return -1;
