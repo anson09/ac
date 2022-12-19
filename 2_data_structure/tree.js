@@ -300,7 +300,7 @@ const assert = require("node:assert/strict");
 
 const NODECOUNT = 20;
 const listGenetator = (number) =>
-  Array.from({ length: number }, () => Math.floor(Math.random() * 100));
+  [...Array(number)].map(() => Math.floor(Math.random() * 100));
 const list = listGenetator(NODECOUNT);
 const tree = create(list);
 

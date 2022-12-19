@@ -23,8 +23,7 @@ function testRunner(fn) {
       }, Math.random() * 5000);
     });
 
-  const jobs = Array.from({ length: 30 }, (_, i) => () => job(i));
-
+  const jobs = [...Array(30)].map((_, i) => () => job(i));
   fn(jobs);
 }
 
