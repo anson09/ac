@@ -14,14 +14,15 @@ function minDiff(arr) {
   function dfs(arr, sum = 0) {
     for (let i = 0; i < arr.length; i++) {
       const tmpArr = [...arr];
-      const tmp = sum + arr[i];
-      if (tmp > half) return;
-      if (tmp > max) max = tmp;
+      const tmpSum = sum + arr[i];
+      if (tmpSum > half) continue;
+      if (tmpSum > max) max = tmpSum;
       tmpArr.splice(i, 1);
-      dfs(tmpArr, tmp);
+      dfs(tmpArr, tmpSum);
     }
   }
 }
 
 /* test code */
 console.assert(minDiff([3, 4, 5]) === 2);
+console.assert(minDiff([8, 3, 4]) === 1);
