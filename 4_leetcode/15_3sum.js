@@ -1,11 +1,12 @@
 // https://leetcode.cn/problems/3sum/
 
-// version 1
+//三个版本都是 time O(n^2)，在不断做常数项优化
 
+// version 1
 var threeSum = function (nums) {
   const result = [];
-  const map = new Map();
-  const set = new Set();
+  const map = new Map(); // 查表减少一层循环
+  const set = new Set(); // 用哈希表查找代替 candidate 每次在 result 中遍历去重，利用此优化刚好能卡 TLE
   nums.forEach((num, idx) => map.set(num, idx));
 
   for (let i = 0; i < nums.length; i++) {
@@ -24,7 +25,8 @@ var threeSum = function (nums) {
 };
 
 // version 2
-
+// 利用双指针，减少一层循环，代替 Map 查表
+// 5x faster than version 1
 var threeSum = function (nums) {
   const result = [];
   const set = new Set();
@@ -51,5 +53,43 @@ var threeSum = function (nums) {
       }
     }
   }
+  return result;
+};
+
+// version 3
+// 剪枝并优化掉哈希表
+// 4x faster than version 2
+var threeSum = function (nums) {
+  const result = [];
+  const len = nums.length;
+  if (len < 3) return result;
+
+  nums.sort((a, b) => a - b);
+
+  for (let i = 0; i < len - 2; i++) {
+    if (nums[i] > 0) break; // 剪枝
+    if (i > 0 && nums[i] === nums[i - 1]) continue; // 去重
+
+    let j = i + 1;
+    let k = len - 1;
+
+    while (j < k) {
+      if (nums[i] + nums[j] > 0) break; // 剪枝
+      const sum = nums[i] + nums[j] + nums[k];
+
+      if (sum === 0) {
+        result.push([nums[i], nums[j], nums[k]]);
+        while (j < k && nums[j] === nums[j + 1]) j++; // 去重
+        while (j < k && nums[k] === nums[k - 1]) k--; // 去重
+        j++;
+        k--;
+      } else if (sum < 0) {
+        j++;
+      } else {
+        k--;
+      }
+    }
+  }
+
   return result;
 };

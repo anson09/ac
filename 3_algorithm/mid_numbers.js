@@ -66,7 +66,7 @@ function mid(arr) {
 }
 
 // version 3
-// 继续简化上一个版本的常数遍历次数
+// 继续简化上一个版本的常数项遍历次数
 function mid(arr) {
   let preMax = -Infinity;
   const stack = [];
