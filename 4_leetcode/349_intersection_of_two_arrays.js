@@ -1,10 +1,17 @@
 // https://leetcode.cn/problems/intersection-of-two-arrays/
 
+// version 1
 // time O(n)
 var intersection = function (nums1, nums2) {
-  const result = [];
-  const map = new Map();
-  nums1.forEach((num) => map.set(num, true));
-  nums2.forEach((num) => map.get(num) && result.push(num));
-  return [...new Set(result)];
+  const res = [];
+  const [long, short] =
+    nums1.length > nums2.length
+      ? [new Set(nums1), new Set(nums2)]
+      : [new Set(nums2), new Set(nums1)];
+
+  for (let i of short) {
+    long.has(i) && res.push(i);
+  }
+
+  return res;
 };
