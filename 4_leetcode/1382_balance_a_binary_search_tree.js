@@ -33,9 +33,9 @@ function isValid(node) {
 
 function InOrder(root, list = []) {
   if (!root) return list;
-  if (root.left) InOrder(root.left, list);
+  InOrder(root.left, list);
   list.push(root);
-  if (root.right) InOrder(root.right, list);
+  InOrder(root.right, list);
   return list;
 }
 

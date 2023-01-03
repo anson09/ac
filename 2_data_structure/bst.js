@@ -465,13 +465,14 @@ class BST {
     return val;
 
     function travel(node) {
-      if (node.left) travel(node.left);
-      if (val) return; // stop both here and parent travelling
+      if (!node) return;
+      travel(node.left);
+      if (val) return; // stop parent travelling
       if (++i === k) {
         val = node.val;
         return;
       }
-      if (node.right) travel(node.right);
+      travel(node.right);
     }
   }
 }

@@ -3,22 +3,21 @@
 比如 [3,4,5], 那么最小差值是 2
 */
 
-// time O(n^2*n!)
-// space O(n^2)
+// time O(n!)
+// space O(n)
+// 组合
 function minDiff(arr) {
   const half = arr.reduce((a, b) => a + b) / 2;
   let max = 0;
-  dfs(arr);
+  dfs(0);
   return (half - max) * 2;
 
-  function dfs(arr, sum = 0) {
-    for (let i = 0; i < arr.length; i++) {
-      const tmpArr = [...arr];
+  function dfs(idx, sum = 0) {
+    for (let i = idx; i < arr.length; i++) {
       const tmpSum = sum + arr[i];
       if (tmpSum > half) continue;
       if (tmpSum > max) max = tmpSum;
-      tmpArr.splice(i, 1);
-      dfs(tmpArr, tmpSum);
+      dfs(idx + 1, tmpSum);
     }
   }
 }
