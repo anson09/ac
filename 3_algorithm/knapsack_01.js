@@ -5,7 +5,7 @@ function knapsack01(weights, values, capacity) {
   function dp(i, j) {
     if (i === 0 || j === 0) return 0;
 
-    const key = [i, j].join();
+    const key = `${i}-${j}`;
     if (memo[key]) return memo[key];
 
     if (j - weights[i - 1] < 0) return (memo[key] = dp(i - 1, j));
