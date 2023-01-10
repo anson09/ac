@@ -1,8 +1,8 @@
 // https://leetcode.cn/problems/coin-change/
 
 // k is the number of coins, n is the amount
-// time O(k^n)
-// space O(n)
+// time: O(k^n) | TLE
+// space: O(n)
 var coinChange = function (coins, amount) {
   if (amount === 0) return 0;
   if (amount < 0) return -1;
@@ -16,8 +16,8 @@ var coinChange = function (coins, amount) {
 };
 
 // version 2 top-down dp
-// time O(kn)
-// space O(n)
+// time: O(kn) | 120ms
+// space: O(n)
 var coinChange = function (coins, amount, memo = {}) {
   if (amount === 0) return 0;
   if (amount < 0) return -1;
@@ -33,8 +33,8 @@ var coinChange = function (coins, amount, memo = {}) {
 };
 
 // version 3 bottom-up dp
-// time O(kn)
-// space O(n)
+// time: O(kn) | 110ms
+// space: O(n)
 var coinChange = function (coins, amount) {
   const dp = new Array(amount + 1).fill(Infinity);
   dp[0] = 0;
@@ -48,6 +48,7 @@ var coinChange = function (coins, amount) {
 };
 
 // version 4 bottom-up dp performance tweak
+// time: 80ms | beat 100%
 var coinChange = function (coins, amount) {
   if (!amount) return 0;
   const dp = new Array(amount + 1).fill(Infinity);

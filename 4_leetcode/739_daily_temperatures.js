@@ -1,5 +1,6 @@
 // https://leetcode.cn/problems/daily-temperatures/
 
+// time: 288ms | beat 34%
 var dailyTemperatures = function (temperatures) {
   const res = Array(temperatures.length).fill(0);
   const stack = [];

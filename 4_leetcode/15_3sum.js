@@ -3,6 +3,7 @@
 //三个版本都是 time O(n^2)，在不断做常数项优化
 
 // version 1
+// time: 3553ms
 var threeSum = function (nums) {
   const result = [];
   const map = new Map(); // 查表减少一层循环
@@ -26,7 +27,7 @@ var threeSum = function (nums) {
 
 // version 2
 // 利用双指针，减少一层循环，代替 Map 查表
-// 5x faster than version 1
+// time: 632ms
 var threeSum = function (nums) {
   const result = [];
   const set = new Set();
@@ -58,7 +59,7 @@ var threeSum = function (nums) {
 
 // version 3
 // 剪枝并优化掉哈希表
-// 4x faster than version 2
+// time: 148ms | beat 31%
 var threeSum = function (nums) {
   const result = [];
   const len = nums.length;

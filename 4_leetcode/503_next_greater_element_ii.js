@@ -1,5 +1,6 @@
 // https://leetcode.cn/problems/next-greater-element-ii/
 
+// time: 108ms | beat 32%
 var nextGreaterElements = function (nums) {
   const res = Array(nums.length).fill(-1);
   const stack = [];

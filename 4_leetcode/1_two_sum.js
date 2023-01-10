@@ -1,6 +1,7 @@
 // https://leetcode.cn/problems/two-sum/
 
 // version 1
+// time: 64ms
 var twoSum = function (nums, target) {
   const map = new Map();
   nums.forEach((num, idx) => map.set(num, idx));
@@ -12,6 +13,7 @@ var twoSum = function (nums, target) {
 };
 
 // version 2
+// time 60ms | beat 93%
 // 只循环一次且 map 不需要塞满
 var twoSum = function (nums, target) {
   const map = new Map();

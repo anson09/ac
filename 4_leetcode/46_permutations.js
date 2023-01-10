@@ -1,5 +1,6 @@
 // https://leetcode.cn/problems/permutations/
 
+// time: 76ms | beat 55%
 var permute = function (nums) {
   const result = [];
 

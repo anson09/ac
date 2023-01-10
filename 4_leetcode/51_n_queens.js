@@ -1,5 +1,6 @@
 // https://leetcode.cn/problems/n-queens/
 
+// time: 76ms | beat 66%
 var solveNQueens = function (n) {
   const rsp = [];
   const board = [...Array(n)].map(() => Array(n).fill("."));

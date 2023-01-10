@@ -1,7 +1,7 @@
 // https://leetcode.cn/problems/intersection-of-two-arrays/
 
 // version 1
-// time O(n)
+// time: O(n) | 64ms | beat 60%
 var intersection = function (nums1, nums2) {
   const res = [];
   const [long, short] =

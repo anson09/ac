@@ -2,6 +2,7 @@
 // time O(n)
 
 // version 1, template
+// time: 68ms
 function _nextGreaterElement(list) {
   const res = [];
   const stack = [];
@@ -30,6 +31,7 @@ var nextGreaterElement = function (nums1, nums2) {
 };
 
 // version 2
+// time: 64ms | beat 81%
 var nextGreaterElement = function (nums1, nums2) {
   const stack = [];
   const record = {};

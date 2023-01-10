@@ -1,6 +1,7 @@
 // https://leetcode.cn/problems/combinations/
 
 // 排列每层都重头找，组合下层从上一层的下一个开始找
+// time: 84ms | beat 91%
 var combine = function (n, k) {
   const res = [];
   const path = []; // 任何时候只存在一条路

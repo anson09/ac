@@ -1,7 +1,7 @@
 // https://leetcode.cn/problems/target-sum/
 
 // version 1
-// time: O(2^n)
+// time: O(2^n) | 4000ms
 // 回溯
 var findTargetSumWays = function (nums, target) {
   let count = 0;
@@ -24,7 +24,7 @@ var findTargetSumWays = function (nums, target) {
 };
 
 // version 2
-// time: O(2^n)
+// time: O(2^n) | 2600ms
 // 二叉树递归, 不用回溯操作
 var findTargetSumWays = function (nums, target) {
   function dfs(index, remain) {
@@ -40,7 +40,7 @@ var findTargetSumWays = function (nums, target) {
 };
 
 // version 3
-// time: O(2^n)
+// time: O(2^n) | 4400ms
 // 缓存优化, 同层相同子问题只计算一次，然而针对 lc 的用例命中率不高，加上缓存读写开销后比第一个版本还慢
 var findTargetSumWays = function (nums, target) {
   const cache = {};
@@ -59,19 +59,26 @@ var findTargetSumWays = function (nums, target) {
 };
 
 // version 4
-// time O(n * sum)
+// time: O(n * sum) | 980ms
 // 先确定 dp 数组定义：dp[i][j] 表示前 i 个数，和为 j 的方法数。通常 dp 数组的值就定义为问题的结果
 // 然后确定递归终止状态和状态转移方程
 // 最后加上 cache
-
 var findTargetSumWays = function (nums, target) {
   const sum = nums.reduce((a, b) => a + b);
+  // 这两种情况无解
   if (sum < Math.abs(target) || (sum + target) % 2 === 1) return 0;
 
   const memo = {};
+  // 问题转化推导，nums划分为A、B两个集合
+  // sum(A) - sum(B) = target
+  // sum(A) = target + sum(B)
+  // 2 * sum(A) = target + sum(A) + sum(B)
+  // sum(A) = (target + sum(nums)) / 2
+  // 转化为子集划分问题
   return dp(nums.length, (sum + target) / 2);
 
   function dp(i, j) {
+    // if (i!==0 && j===0)，若 nums 里有 0，情况就不止一种，所以不能直接返回
     if (i === 0 && j === 0) return 1;
     if (i === 0 || j < 0) return 0;
 
@@ -82,3 +89,6 @@ var findTargetSumWays = function (nums, target) {
     return (memo[key] = dp(i - 1, j) + dp(i - 1, j - nums[i - 1]));
   }
 };
+
+// version 5
+var findTargetSumWays = function (nums, target) {};
