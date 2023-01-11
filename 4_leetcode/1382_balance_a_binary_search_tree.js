@@ -1,6 +1,6 @@
 // https://leetcode.cn/problems/balance-a-binary-search-tree/
 
-// time: 124ms | beat 95%
+// time: 120ms | beat 96%
 function isValid(node) {
   function depth(root) {
     if (!root) return 0;
@@ -27,22 +27,17 @@ function InOrder(root, list = []) {
   return list;
 }
 
-function build(list, root, side) {
-  if (!list.length) return root;
-  let mid = Math.floor(list.length / 2);
-  if (!root) {
-    root = list[mid];
-  } else {
-    root[side] = list[mid];
-    root = root[side];
-  }
-  build(list.slice(0, mid), root, "left");
-  build(list.slice(mid + 1, list.length), root, "right");
+function build(list, l, r) {
+  if (l > r) return null;
+  const mid = Math.floor((l + r) / 2);
+  const root = list[mid];
+  root.left = build(list, l, mid - 1);
+  root.right = build(list, mid + 1, r);
   return root;
 }
 
 var balanceBST = function (root) {
-  if (isValid(root)) return root;
+  // if (isValid(root)) return root; 针对 lc 用例加检查会慢 20ms
 
   const sortedList = InOrder(root).map((i) => {
     i.left = null;
@@ -50,5 +45,5 @@ var balanceBST = function (root) {
     return i;
   });
 
-  return build(sortedList);
+  return build(sortedList, 0, sortedList.length - 1);
 };
