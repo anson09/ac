@@ -1,3 +1,4 @@
+// version 1
 class BinarySearchTreeNode {
   constructor(key, value) {
     this._key = key;
@@ -336,7 +337,8 @@ class BinarySearchTree {
   }
 }
 
-// simple version with loop
+// version  2
+// with loop
 class Node {
   constructor(val) {
     this.val = val;

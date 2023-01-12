@@ -1,7 +1,8 @@
 // https://leetcode.cn/problems/next-greater-element-i/
 // time O(n)
 
-// version 1, template
+// version 1
+// template
 // time: 68ms
 function _nextGreaterElement(list) {
   const res = [];
