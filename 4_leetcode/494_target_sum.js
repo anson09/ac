@@ -40,25 +40,6 @@ var findTargetSumWays = function (nums, target) {
 };
 
 // version 3
-// time: O(2^n) | 4400ms
-// 缓存优化, 同层相同子问题只计算一次，然而针对 lc 的用例命中率不高，加上缓存读写开销后比第一个版本还慢
-var findTargetSumWays = function (nums, target) {
-  const cache = {};
-
-  function dfs(index, remain) {
-    if (index === nums.length) {
-      return remain === 0 ? 1 : 0;
-    }
-    const key = `${index}-${remain}`;
-    if (cache[key]) return cache[key];
-    return (cache[key] =
-      dfs(index + 1, remain - nums[index]) +
-      dfs(index + 1, remain + nums[index]));
-  }
-  return dfs(0, target);
-};
-
-// version 4
 // time: O(n * sum) | 1000ms
 // 先确定 dp 数组定义：dp[i][j] 表示前 i 个数，和为 j 的方法数。通常 dp 数组的值就定义为问题的结果
 // 然后确定递归终止状态和状态转移方程
@@ -90,7 +71,7 @@ var findTargetSumWays = function (nums, target) {
   }
 };
 
-// version 5
+// version 4
 // time: O(n * sum) | 68ms | beat 81%
 // space: O(n * sum)
 var findTargetSumWays = function (nums, target) {
@@ -115,7 +96,7 @@ var findTargetSumWays = function (nums, target) {
   return dp[len][subsetSum];
 };
 
-// version 6
+// version 5
 // time: O(n * sum) | 68ms | beat 81%
 // space: O(sum)
 // 空间二维压缩一维，dp[i][j] 只和 dp[i-i][...]有关，也就是每一行信息仅用于计算下一行，最终只取最后一行，所以其实用一行空间不断原地迭代下一行就行
