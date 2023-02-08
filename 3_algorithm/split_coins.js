@@ -3,7 +3,7 @@
 比如 [3,4,5], 那么最小差值是 2
 */
 
-// time O(n!)
+// time O(2^n) Cn 0-n 的组合之和
 // space O(n)
 // 组合
 function minDiff(arr) {
