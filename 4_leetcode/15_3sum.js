@@ -3,17 +3,17 @@
 //三个版本都是 time O(n^2)，在不断做常数项优化
 
 // version 1
-// time: 3553ms
+// time: 3248ms
 var threeSum = function (nums) {
   const result = [];
-  const map = new Map(); // 查表减少一层循环
+  const map = new Map(); // 查表减少一层循环, 注意此处只存储了相同值的最后一个位置但不影响此问题结果
   const set = new Set(); // 用哈希表查找代替 candidate 每次在 result 中遍历去重，利用此优化刚好能卡 TLE
   nums.forEach((num, idx) => map.set(num, idx));
 
   for (let i = 0; i < nums.length; i++) {
     for (let j = i + 1; j < nums.length; j++) {
       const target = -(nums[i] + nums[j]);
-      if (![undefined, i, j].includes(map.get(target))) {
+      if (map.get(target) > j) {
         const candidate = [nums[i], nums[j], target].sort((a, b) => a - b);
         if (!set.has(candidate.join())) {
           set.add(candidate.join());
@@ -59,7 +59,7 @@ var threeSum = function (nums) {
 
 // version 3
 // 剪枝并优化掉哈希表
-// time: 148ms | beat 31%
+// time: 152ms | beat 40%
 var threeSum = function (nums) {
   const result = [];
   const len = nums.length;
@@ -80,10 +80,8 @@ var threeSum = function (nums) {
 
       if (sum === 0) {
         result.push([nums[i], nums[j], nums[k]]);
-        while (j < k && nums[j] === nums[j + 1]) j++; // 去重
-        while (j < k && nums[k] === nums[k - 1]) k--; // 去重
-        j++;
-        k--;
+        while (j < k && nums[j] === nums[++j]); // 去重
+        while (j < k && nums[k] === nums[--k]); // 去重
       } else if (sum < 0) {
         j++;
       } else {
