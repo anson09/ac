@@ -54,10 +54,11 @@ function sortArray(array) {
 
 // version 4
 // quicksort
-// time: O(nlogn) | 3300 ms
+// time: O(nlogn) | 1336 ms | beat 50%
 // space: O(logn)
 // badest case when recursion deep is N: time: O(n^2), space: O(n)
 function sortArray(array) {
+  shuffle(array);
   sort(array, 0, array.length - 1);
   return array;
 
@@ -81,6 +82,14 @@ function sortArray(array) {
     }
     [arr[left], arr[j]] = [arr[j], arr[left]];
     return j;
+  }
+
+  // adding shuffle boosts 2000ms
+  function shuffle(arr) {
+    for (let i = 0; i < arr.length; i++) {
+      const rand = Math.floor(Math.random() * arr.length);
+      [arr[i], arr[rand]] = [arr[rand], arr[i]];
+    }
   }
 }
 
