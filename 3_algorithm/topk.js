@@ -1,4 +1,6 @@
-// O(N)
+// 快速选择
+// time: O(N)
+// space: O(N)
 function topk(arr, k) {
   if (arr.length <= k) return arr;
   const left = [];
@@ -15,7 +17,9 @@ function topk(arr, k) {
   return topk(left, k);
 }
 
-// O(N) 计数排序
+// 计数排序
+// time: O(N)
+// space: O(N)
 function topkLimited(arr, k) {
   if (k >= arr.length) return arr;
 

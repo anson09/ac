@@ -54,7 +54,7 @@ function sortArray(array) {
 
 // version 4
 // quicksort
-// time: O(nlogn) | 1336 ms | beat 50%
+// time: O(nlogn) | 1312 ms | beat 50%
 // space: O(logn)
 // badest case when recursion deep is N: time: O(n^2), space: O(n)
 function sortArray(array) {
@@ -74,8 +74,9 @@ function sortArray(array) {
     const pivot = arr[left];
     let i = left + 1;
     let j = right;
+    // 这层用 i < j 是错的，这个条件会导致 i===j 时 pivot 一定和 j 互换，实际 j 可以走到 pivot 的位置
     while (i <= j) {
-      while (i < right && arr[i] <= pivot) i++;
+      while (i < right && arr[i] <= pivot) i++; // 把相等的处理到一边，左右都行，仍留在两侧降低效率
       while (j > left && arr[j] > pivot) j--;
       if (i >= j) break;
       [arr[i], arr[j]] = [arr[j], arr[i]];
@@ -84,7 +85,7 @@ function sortArray(array) {
     return j;
   }
 
-  // adding shuffle boosts 2000ms
+  // adding shuffle boosts 2000ms in lc cases
   function shuffle(arr) {
     for (let i = 0; i < arr.length; i++) {
       const rand = Math.floor(Math.random() * arr.length);
