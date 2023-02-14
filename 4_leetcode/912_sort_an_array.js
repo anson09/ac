@@ -2,7 +2,7 @@
 
 // version 1
 // bubblesort
-// time: TLE
+// time: O(n^2) | TLE
 function sortArray(array) {
   for (let i = array.length - 1; i > 0; i--) {
     for (let j = 0; j < i; j++) {
@@ -16,7 +16,7 @@ function sortArray(array) {
 
 // version 2
 // selectsort
-// time: 8500ms
+// time: O(n^2) | 8500ms
 function sortArray(array) {
   for (let i = array.length - 1; i > 0; i--) {
     let maxIdx = 0;
@@ -32,6 +32,37 @@ function sortArray(array) {
 }
 
 // version 3
+// mergesort
+// mergesort is stable sort
+// time: O(nlogn) | 9000ms
+// space: O(n)
+function sortArray(array) {
+  return sort(array);
+
+  function sort(array) {
+    // 递归到只剩一个元素，这个元素就是排好序的了
+    if (array.length <= 1) return array;
+    const mid = Math.floor(array.length / 2);
+    // 类后序遍历
+    const left = sort(array.slice(0, mid));
+    const right = sort(array.slice(mid));
+    return merge(left, right);
+  }
+
+  function merge(left, right) {
+    const result = [];
+    while (left.length && right.length) {
+      if (left[0] <= right[0]) {
+        result.push(left.shift());
+      } else {
+        result.push(right.shift());
+      }
+    }
+    return result.concat(left, right);
+  }
+}
+
+// version 4
 // quicksort
 // quicksort is unstable sort, v8 offer stable sort since chrome 70 | node 12
 // time: O(nlogn)
@@ -52,7 +83,7 @@ function sortArray(array) {
   return [...sortArray(left), pivot, ...sortArray(right)];
 }
 
-// version 4
+// version 5
 // quicksort
 // time: O(nlogn) | 1312 ms | beat 50%
 // space: O(logn)
