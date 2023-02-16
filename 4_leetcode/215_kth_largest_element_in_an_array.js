@@ -1,5 +1,6 @@
 // https://leetcode.cn/problems/kth-largest-element-in-an-array/
 
+// version 1
 // time: O(N)
 // space: O(N) | JavaScript heap out of memory
 var findKthLargest = function (nums, k) {
@@ -16,6 +17,7 @@ var findKthLargest = function (nums, k) {
   return findKthLargest(right, k - left.length - 1);
 };
 
+// version 2
 // time: O(N) | 88ms | beat 88%
 // space: O(logN)
 var findKthLargest = function (nums, k) {

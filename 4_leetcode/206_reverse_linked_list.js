@@ -1,5 +1,6 @@
 // https://leetcode.cn/problems/reverse-linked-list/
 
+// version 1
 // time: 68ms
 var reverseList = function (head) {
   if (!head) return null;
@@ -17,6 +18,7 @@ var reverseList = function (head) {
   }
 };
 
+// version 2
 // time: 64ms | beat: 66%
 var reverseList = function (head) {
   if (!head) return null;

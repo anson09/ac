@@ -1,5 +1,6 @@
 // https://leetcode.cn/problems/merge-two-sorted-lists/
 
+// version 1
 // time: O(n) | 84ms
 // space:O(n)
 var mergeTwoLists = function (list1, list2) {
@@ -14,6 +15,7 @@ var mergeTwoLists = function (list1, list2) {
   }
 };
 
+// version 2
 // time: O(n) | 64ms | beat 82%
 // space: O(1)
 var mergeTwoLists = function (list1, list2) {
