@@ -66,6 +66,7 @@ function dfsPreOrder(root) {
   const visit = [];
   function traverse(node) {
     if (!node) return;
+    // 在刚进入节点时处理逻辑，这里的逻辑是简单的插入数组
     visit.push(node.val);
     traverse(node.left);
     traverse(node.right);
@@ -79,6 +80,7 @@ function dfsInOrder(root) {
   function traverse(node) {
     if (!node) return;
     traverse(node.left);
+    // 在左子树遍历完，要开始遍历右子树时处理逻辑
     visit.push(node.val);
     traverse(node.right);
   }
@@ -92,6 +94,7 @@ function dfsPostOrder(root) {
     if (!node) return;
     traverse(node.left);
     traverse(node.right);
+    // 在将要离开节点时处理逻辑
     visit.push(node.val);
   }
   traverse(root);
