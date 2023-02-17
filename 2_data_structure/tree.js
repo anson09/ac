@@ -151,25 +151,21 @@ function depth(root) {
 }
 
 function width(root) {
-  const width = [];
+  if (!root) return null;
+  const widths = [];
   const queue = [];
-  let count = 0;
   queue.push(root);
-  root.layerLast = true;
 
-  while (true) {
-    const node = queue.shift();
-    count++;
-    if (node.left) queue.push(node.left);
-    if (node.right) queue.push(node.right);
-    if (node.layerLast) {
-      width.push(count);
-      count = 0;
-      if (!queue.length) break;
-      queue[queue.length - 1].layerLast = true;
+  while (queue.length) {
+    const w = queue.length;
+    widths.push(w);
+    for (let i = 0; i < w; i++) {
+      const node = queue.shift();
+      if (node.left) queue.push(node.left);
+      if (node.right) queue.push(node.right);
     }
   }
-  return width;
+  return widths;
 }
 
 // 镜面反转二叉树
