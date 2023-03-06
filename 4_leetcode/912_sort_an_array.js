@@ -66,8 +66,8 @@ function sortArray(array) {
 // quicksort
 // quicksort is unstable sort, v8 offer stable sort since chrome 70 | node 12
 // time: O(nlogn)
-// space: O(n) | JavaScript heap out of memory
-// badest case when recursion deep is N: time: O(n^2), space: O(n^2)
+// space: O(n) | geometric progression | JavaScript heap out of memory
+// badest case when recursion deep is N: time: O(n^2), space: O(n^2) ｜ arithmetic progression
 function sortArray(array) {
   if (array.length <= 1) return array;
   const pivot = array[0];
@@ -85,7 +85,7 @@ function sortArray(array) {
 
 // version 5
 // quicksort
-// time: O(nlogn) | 1312 ms | beat 50%
+// time: O(nlogn) | 1448 ms | beat 49%
 // space: O(logn)
 // badest case when recursion deep is N: time: O(n^2), space: O(n)
 function sortArray(array) {
@@ -105,7 +105,7 @@ function sortArray(array) {
     const pivot = arr[left];
     let i = left + 1;
     let j = right;
-    // 这层用 i < j 是错的，这个条件会导致 i===j 时 pivot 一定和 j 互换，实际 j 可以走到 pivot 的位置
+    // 这层用 i < j 是错的，这个条件会导致只有两个元素时 i===j，pivot 一定和 j 互换，实际 j 可以走到 pivot 的位置
     while (i <= j) {
       while (i < right && arr[i] <= pivot) i++; // 把相等的处理到一边，左右都行，仍留在两侧降低效率
       while (j > left && arr[j] > pivot) j--;
@@ -118,8 +118,8 @@ function sortArray(array) {
 
   // adding shuffle boosts 2000ms in lc cases
   function shuffle(arr) {
-    for (let i = 0; i < arr.length; i++) {
-      const rand = Math.floor(Math.random() * arr.length);
+    for (let i = arr.length - 1; i > 0; i--) {
+      const rand = Math.floor(Math.random() * (i + 1));
       [arr[i], arr[rand]] = [arr[rand], arr[i]];
     }
   }
