@@ -66,7 +66,7 @@ function sortArray(array) {
 // quicksort
 // quicksort is unstable sort, v8 offer stable sort since chrome 70 | node 12
 // time: O(nlogn)
-// space: O(n) | geometric progression | JavaScript heap out of memory
+// space: O(n) | geometric progression | OOM
 // badest case when recursion deep is N: time: O(n^2), space: O(n^2) ｜ arithmetic progression
 function sortArray(array) {
   if (array.length <= 1) return array;

@@ -2,7 +2,7 @@
 
 // version 1
 // time: O(N)
-// space: O(N) | JavaScript heap out of memory
+// space: O(N) | OOM
 var findKthLargest = function (nums, k) {
   if (k > nums.length) return null;
   const left = [];
