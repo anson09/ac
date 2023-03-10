@@ -145,9 +145,9 @@ function dfsPostOrderLoop(root) {
 
 function depth(root) {
   if (!root) return 0;
-  const leftDepth = depth(root.left);
-  const rightDepth = depth(root.right);
-  return leftDepth > rightDepth ? leftDepth + 1 : rightDepth + 1;
+  const l = depth(root.left);
+  const r = depth(root.right);
+  return Math.max(l, r) + 1;
 }
 
 function width(root) {

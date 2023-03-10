@@ -9,13 +9,14 @@ function debounce(fn, time) {
 
 function debounceLeadingEdge(fn, time) {
   let timeout;
+  let canRun = true;
   return function () {
-    if (!timeout) {
-      fn(...arguments);
-    }
     clearTimeout(timeout);
     timeout = setTimeout(() => {
-      timeout = null;
+      canRun = true;
     }, time);
+    if (!canRun) return;
+    canRun = false;
+    fn(...arguments);
   };
 }

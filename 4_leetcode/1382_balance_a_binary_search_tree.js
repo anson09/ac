@@ -15,8 +15,7 @@ function isValid(node) {
     if (Math.abs(left - right) > 1) return -1;
     return Math.max(left, right) + 1;
   }
-  if (depth(node) === -1) return false;
-  return true;
+  return depth(node) !== -1;
 }
 
 function InOrder(root, list = []) {
