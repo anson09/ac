@@ -1,14 +1,15 @@
 // https://leetcode.cn/problems/permutations/
 
-// time: 76ms | beat 55%
+// time: O(n!) | 80ms | beat 33%
 var permute = function (nums) {
   const result = [];
-
+  const path = [];
   dfs();
 
   return result;
 
-  function dfs(path = []) {
+  function dfs() {
+    // 比较 path.length 的长度来控制返回，返回条件决定了 P(m,n) 中 n 的深度，实际计算了 P(m,1)、P(m,2)、...、P(m,n) 的情况，这题中 n 等于 m
     if (path.length === nums.length) {
       result.push([...path]);
       return;
@@ -20,7 +21,7 @@ var permute = function (nums) {
       if (path.includes(nums[i])) continue;
       // path 和 nums 的 2/3 思路一样，这里用了 3
       path.push(nums[i]);
-      dfs(path);
+      dfs();
       path.pop();
     }
   }
