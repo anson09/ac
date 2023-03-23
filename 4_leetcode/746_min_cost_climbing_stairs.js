@@ -14,7 +14,7 @@ var minCostClimbingStairs = function (cost) {
 };
 
 // version 2
-// time: O(n) | 60ms | beat 84%
+// time: O(n)
 // space: O(n)
 var minCostClimbingStairs = function (cost) {
   const dp = [cost[0], cost[1]];
@@ -26,17 +26,13 @@ var minCostClimbingStairs = function (cost) {
 };
 
 // version 3
-// time: O(n) | 72ms
+// time: O(n) | 68ms | beat 45%
 // space: O(1)
 var minCostClimbingStairs = function (cost) {
   let a = cost[0];
   let b = cost[1];
-  let target;
-  cost[cost.length] = 0;
   for (let i = 2; i < cost.length; i++) {
-    target = Math.min(a, b) + cost[i];
-    a = b;
-    b = target;
+    [a, b] = [b, Math.min(a, b) + cost[i]];
   }
-  return target;
+  return Math.min(a, b);
 };

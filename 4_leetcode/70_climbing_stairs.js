@@ -8,7 +8,7 @@ var climbStairs = function (n) {
 };
 
 // version 2
-// time: O(n) | 48 ms | beat 99%
+// time: O(n)
 // space: O(n)
 var climbStairs = function (n) {
   const dp = [1, 2];
@@ -20,18 +20,14 @@ var climbStairs = function (n) {
 
 // version 3
 // 一维压零维
-// 数据交换次数多，比上一种稍慢
-// time: O(n) | 56ms
+// time: O(n) | 48 ms | beat 99%
 // space: O(1)
 var climbStairs = function (n) {
   if (n === 1 || n === 2) return n;
   let a = 1;
   let b = 2;
-  let res = 0;
-  for (let i = 2; i < n; i++) {
-    res = a + b;
-    a = b;
-    b = res;
+  for (let i = 3; i <= n; i++) {
+    [a, b] = [b, a + b];
   }
-  return res;
+  return b;
 };
