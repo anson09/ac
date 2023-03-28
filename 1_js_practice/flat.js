@@ -1,7 +1,7 @@
 // 递归版本
 function flattenByRecursion(arr) {
   return arr.reduce((prev, next) => {
-    return prev.concat(Array.isArray(next) ? flatten(next) : next);
+    return prev.concat(Array.isArray(next) ? flattenByRecursion(next) : next);
   }, []);
 }
 

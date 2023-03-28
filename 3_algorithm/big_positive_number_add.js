@@ -1,4 +1,5 @@
 // 大正数相加
+// [link](../leetcode/415_add_strings.js)
 function integerAdd(a, b) {
   const [sa, sb] = [a, b].map((i) => i.split("").map(Number).reverse());
   const [larger, smaller] = sa.length >= sb.length ? [sa, sb] : [sb, sa];
