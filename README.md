@@ -1,20 +1,26 @@
 # README
 
-此 repo 按目录划分为四部分
+This project is suited for those who want to promote coding ability systematically 🏗
 
-1. js 训练
-2. 数据结构
-3. 算法
-4. leetcode 原题
+All problems are implemented by vanilla js 💛
 
-以上全部问题均用 js 实现
+## Dirs
 
-## 关于 leetcode 挑战
+Codes are divided into 4 parts: 🥘
 
-leetcode run time 和 beat 信息可以参考，但信息量有限。
+1. [js practice](./1_js_practice)
+2. [data structure](./2_data_structure/)
+3. [algorithm](./3_algorithm/)
+4. [leetcode](./4_leetcode/)
 
-run time 是通过全部测试用例时间之和，当提交 beat 垫底或者和最快时间上有数量级差异时就需要做优化了。
+## About Leetcode Challenge
 
-- 测试用例中间可能会补充，早提交需要跑的用例少
-- 同一份代码每次提交时间会有差异，最夸张实测两次提交一次 3s 一次 2s，跟服务器资源分配和负载有关
-- 遇到过提交前 50% 大家只差 10ms 左右的问题，看上去被 50% beat 了，其实大家差的只是抖动
+The leetcode run time and beat info could be used as a reference, but please not taking much seriously
+
+Run time is calculated by the sum of all test cases, and making optimization is only needed when your submission is at the bottom or has a magnitude difference from the fastest one
+
+Fun facts: 💡
+
+- The test cases may be supplemented at any time. The earlier you submit, the fewer cases you need to run
+- The run time of the same code may be different at each submission. The most extreme situation I met is submitting the same code twice, once 3s but once 2s, which is related to the server resource allocation and current usage
+- Encountered the submission of the first 50% only gap 10ms, 50% seems huge, while the difference is just natural environment fluctuation
