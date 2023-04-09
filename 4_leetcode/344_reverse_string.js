@@ -1,3 +1,5 @@
+// tags: #string
+
 // https://leetcode.cn/problems/reverse-string/
 
 // 实现数组 reverse 方法

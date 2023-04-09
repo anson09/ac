@@ -1,3 +1,5 @@
+// tags: #hash #api
+
 // 使用浏览器 API 生成文件 SHA-256 哈希值
 async function getFileHash() {
   const [fileHandle] = await showOpenFilePicker();

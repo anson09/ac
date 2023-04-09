@@ -1,3 +1,5 @@
+// tags: #dp #hot
+
 // https://leetcode.cn/problems/climbing-stairs/
 
 // version 1

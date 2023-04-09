@@ -1,3 +1,5 @@
+// tags: #prototype #hot
+
 function inherits(Child, Parent) {
   Child.prototype = Object.create(Parent.prototype);
   Child.prototype.constructor = Child;

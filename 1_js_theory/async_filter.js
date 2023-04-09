@@ -1,5 +1,6 @@
-/* map version */
+// tags: #async #concurrence
 
+/* map version */
 const asyncFilterByMap = async (arr, predicate) => {
   const results = await Promise.all(arr.map(predicate));
 

@@ -1,3 +1,5 @@
+// tags: #promise
+
 function _reverse(promise) {
   return new Promise((resolve, reject) =>
     Promise.resolve(promise).then(reject, resolve)

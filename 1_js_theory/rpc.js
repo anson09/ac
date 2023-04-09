@@ -1,3 +1,5 @@
+// tags: #rpc #design-mode
+
 // 宿主环境提供线程通信 postMessage(message) 和 addListener((message)=>{}) 方法，封装他们进行 rpc 通讯
 // 调用方式 const res = await rpc('method', ...params);
 

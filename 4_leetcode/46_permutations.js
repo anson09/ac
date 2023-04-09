@@ -1,3 +1,5 @@
+// tags: #backtracking #permutation
+
 // https://leetcode.cn/problems/permutations/
 
 // time: O(n!) | 80ms | beat 33%

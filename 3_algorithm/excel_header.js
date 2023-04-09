@@ -1,3 +1,5 @@
+// tags: #math #bit
+
 // question：循环A-Z当超过26个字母时输出AA...AZ...BA..
 
 // A=0，Z=25，则任何进制下AA无法表示26

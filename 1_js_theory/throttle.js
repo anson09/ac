@@ -1,3 +1,5 @@
+// tags: #throttle #closure #hot
+
 // 截流
 function throttle(fn, time) {
   let canRun = true;

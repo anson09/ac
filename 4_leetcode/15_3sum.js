@@ -1,3 +1,5 @@
+// tags: #hashmap #two-pointers
+
 // https://leetcode.cn/problems/3sum/
 
 //三个版本都是 time O(n^2)，在不断做常数项优化
@@ -33,7 +35,7 @@ var threeSum = function (nums) {
   const set = new Set();
   nums.sort((a, b) => a - b);
 
-  for (let i = nums.length; i >= 2; i--) {
+  for (let i = nums.length - 1; i >= 2; i--) {
     j = 0;
     k = i - 1;
     while (j < k) {

@@ -1,17 +1,19 @@
 # README
 
-This project is suited for those who want to promote coding ability systematically 🏗
+This project is suited for those who want to promote full-stack coding ability systematically 🏗
 
 All problems are implemented by vanilla js 💛
 
-## Dirs
+## INDEX
 
 Codes are divided into 4 parts: 🥘
 
-1. [js practice](./1_js_practice)
-2. [data structure](./2_data_structure/)
-3. [algorithm](./3_algorithm/)
-4. [leetcode](./4_leetcode/)
+1. [JS Theory](./1_js_theory/)
+2. [Data Structure](./2_data_structure/)
+3. [Algorithm](./3_algorithm/)
+4. [Leetcode](./4_leetcode/)
+
+You can filter themes by tag #xxx
 
 ## About Leetcode Challenge
 

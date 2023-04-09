@@ -1,3 +1,5 @@
+// tags: #event #design-mode #hot
+
 class PubSub {
   #evts = {};
 

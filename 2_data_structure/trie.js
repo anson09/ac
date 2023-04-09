@@ -1,3 +1,5 @@
+// tags: #trie #data-structure
+
 class TrieNode {
   constructor(char) {
     this._char = char;

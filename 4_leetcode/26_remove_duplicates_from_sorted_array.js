@@ -1,3 +1,5 @@
+// tags: #two-pointers
+
 // https://leetcode.cn/problems/remove-duplicates-from-sorted-array/
 
 // time: O(n) | 72ms |beat 67%

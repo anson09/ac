@@ -1,7 +1,9 @@
+// tags: #backtracking #combination #dp #LIS
+
 // https://leetcode.cn/problems/longest-increasing-subsequence/
 
 // time: O(2^n) | TLE
-var lengthOfLIS = function(nums) {
+var lengthOfLIS = function (nums) {
   let largest = [];
   let current = [];
 
@@ -9,9 +11,13 @@ var lengthOfLIS = function(nums) {
   return largest.length;
 
   function dfs(start) {
-    for (let i = start; nums.length - i > largest.length - current.length; i++) {
+    for (
+      let i = start;
+      nums.length - i > largest.length - current.length;
+      i++
+    ) {
       if (current.length !== 0 && nums[i] <= current.at(-1)) continue;
-      current.push(nums[i])
+      current.push(nums[i]);
       if (current.length > largest.length) largest = [...current];
       dfs(i + 1);
       current.pop();
@@ -20,7 +26,7 @@ var lengthOfLIS = function(nums) {
 };
 
 // time: O(2^n) | 108ms | beat 79%
-var lengthOfLIS = function(nums) {
+var lengthOfLIS = function (nums) {
   const dp = [1];
   for (let i = 1; i < nums.length; i++) {
     let max = 0;
@@ -29,5 +35,5 @@ var lengthOfLIS = function(nums) {
     }
     dp[i] = max + 1;
   }
-  return Math.max(...dp)
-}
+  return Math.max(...dp);
+};

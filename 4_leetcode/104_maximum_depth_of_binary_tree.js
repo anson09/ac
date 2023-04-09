@@ -1,3 +1,5 @@
+// tags: #tree #dfs #backtracking #hot
+
 // https://leetcode.cn/problems/maximum-depth-of-binary-tree/
 
 // version 1

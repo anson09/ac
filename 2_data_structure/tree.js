@@ -1,3 +1,5 @@
+// tags: #tree #data-structure
+
 class Node {
   constructor(val) {
     this.val = val;

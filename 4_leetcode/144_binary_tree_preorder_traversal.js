@@ -1,3 +1,5 @@
+// tags: #tree #dfs
+
 // https://leetcode.cn/problems/binary-tree-preorder-traversal/
 
 // 与常规遍历不同，用了原地分解问题思路

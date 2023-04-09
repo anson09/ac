@@ -1,3 +1,5 @@
+// tags: #tree #dfs
+
 // https://leetcode.cn/problems/same-tree/
 
 // time: 48ms | beat 99%

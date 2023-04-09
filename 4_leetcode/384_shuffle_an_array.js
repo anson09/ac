@@ -1,3 +1,5 @@
+// tags: #math
+
 // https://leetcode.cn/problems/shuffle-an-array/
 
 var Solution = function (nums) {

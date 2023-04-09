@@ -1,3 +1,5 @@
+// tags: #string #math
+
 // 大正数相加
 // [link](../leetcode/415_add_strings.js)
 function integerAdd(a, b) {

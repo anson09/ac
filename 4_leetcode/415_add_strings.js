@@ -1,3 +1,5 @@
+// tags: #math
+
 // https://leetcode.cn/problems/add-strings/
 
 // time: 68ms | beat 68%

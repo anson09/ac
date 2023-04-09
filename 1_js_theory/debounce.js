@@ -1,3 +1,5 @@
+// tags: #debounce #closure #hot
+
 // 防抖
 function debounce(fn, time) {
   let timeout;

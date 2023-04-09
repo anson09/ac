@@ -1,3 +1,4 @@
+// tags: #graph #data-structure
 class DirectedGraph {
   constructor() {
     this._vertices = new Map();

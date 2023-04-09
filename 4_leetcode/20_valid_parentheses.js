@@ -1,3 +1,5 @@
+// tags: #stack #hot
+
 // https://leetcode.cn/problems/valid-parentheses/
 
 // time: O(n) | 52ms | beat 99%

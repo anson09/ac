@@ -1,3 +1,5 @@
+// tags: #dp #knapsack
+
 // top-down
 function knapsack01(weights, values, capacity) {
   const memo = {};

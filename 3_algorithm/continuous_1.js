@@ -1,3 +1,5 @@
+// tags: #format
+
 // 输入是 1,2,3,5,7,8,10 输出要求是 1~3 5 7~8 10
 
 function continuous(...args) {

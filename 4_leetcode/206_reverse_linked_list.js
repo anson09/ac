@@ -1,3 +1,5 @@
+// tags: #linkedlist #hot
+
 // https://leetcode.cn/problems/reverse-linked-list/
 
 // version 1

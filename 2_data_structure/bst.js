@@ -1,3 +1,5 @@
+// tags: #bst #data-structure
+
 // version 1
 class BinarySearchTreeNode {
   constructor(key, value) {

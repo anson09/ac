@@ -1,3 +1,5 @@
+// tags: #promise #callback
+
 function promisify(fn) {
   return (...args) => {
     return new Promise((res, rej) => {

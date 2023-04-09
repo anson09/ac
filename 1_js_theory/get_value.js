@@ -1,3 +1,5 @@
+// tags: #string #regex
+
 // writing a get function to pass test code below
 
 // version 1

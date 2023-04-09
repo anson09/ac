@@ -1,3 +1,5 @@
+// tags: #clone #recursion #hot
+
 function deepClone(obj, hash = new WeakMap()) {
   if (obj instanceof Date) return new Date(obj);
   if (obj instanceof RegExp) return new RegExp(obj);

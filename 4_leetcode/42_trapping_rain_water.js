@@ -1,3 +1,5 @@
+// tags: #two-pointers
+
 // https://leetcode.cn/problems/trapping-rain-water/
 
 // version 1

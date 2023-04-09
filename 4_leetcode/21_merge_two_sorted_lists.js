@@ -1,3 +1,5 @@
+// tags: #recursion #linkedlist #hot
+
 // https://leetcode.cn/problems/merge-two-sorted-lists/
 
 // version 1

@@ -1,3 +1,5 @@
+// tags: #dp #knapsack
+
 // https://leetcode.cn/problems/coin-change/
 
 // version 1

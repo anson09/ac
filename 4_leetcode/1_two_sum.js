@@ -1,3 +1,5 @@
+// tags: #hashmap
+
 // https://leetcode.cn/problems/two-sum/
 
 // version 1

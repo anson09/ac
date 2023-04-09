@@ -1,3 +1,5 @@
+// tags: #promise #concurrence
+
 /* 实现一个能够控制任务并发数量的函数 */
 function limitedParallel(jobs, limit = 5) {
   let cursor = limit;

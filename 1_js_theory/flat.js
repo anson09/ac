@@ -1,3 +1,5 @@
+//tag: #flat #hot
+
 // 递归版本
 function flattenByRecursion(arr) {
   return arr.reduce((prev, next) => {

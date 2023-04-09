@@ -1,3 +1,5 @@
+// tags: #bit
+
 // https://leetcode.cn/problems/single-number/
 
 // version 1

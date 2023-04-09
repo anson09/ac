@@ -1,3 +1,5 @@
+// tags: #backtracking
+
 // https://leetcode.cn/problems/n-queens/
 
 // time: 76ms | beat 66%

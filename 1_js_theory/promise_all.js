@@ -1,5 +1,8 @@
+// tags: #promise #hot
+
 // 利用 Promise 实现 Promise.all 方法
 
+// tips:
 // for in -> 数组、字符串、对象
 // for of(可迭代对象) -> 数组、字符串、Map、Set
 // forEach -> 数组、Map、Set
