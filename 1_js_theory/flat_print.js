@@ -1,3 +1,5 @@
+// tags: #recursion
+
 // Rewriting Object's toString method，print object to console in flat style like below
 
 const obj = {
