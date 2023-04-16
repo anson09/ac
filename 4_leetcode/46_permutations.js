@@ -28,3 +28,23 @@ var permute = function (nums) {
     }
   }
 };
+
+// time: O(n!) | 76ms | beat 58%
+var permute = function (nums) {
+  const result = [];
+  dfs([], nums);
+  return result;
+
+  function dfs(select, options) {
+    if (select.length === nums.length) {
+      result.push(select);
+      return;
+    }
+    for (let i of options) {
+      dfs(
+        [...select, i],
+        options.filter((j) => j !== i)
+      );
+    }
+  }
+};
