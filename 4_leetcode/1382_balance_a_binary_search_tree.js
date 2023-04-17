@@ -1,3 +1,5 @@
+// tags: #tree #bst
+
 // https://leetcode.cn/problems/balance-a-binary-search-tree/
 
 // time: 116ms | beat 97%

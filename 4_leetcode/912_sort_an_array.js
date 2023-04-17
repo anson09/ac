@@ -1,3 +1,5 @@
+// tags: #sort
+
 // https://leetcode.cn/problems/sort-an-array/
 
 // version 1

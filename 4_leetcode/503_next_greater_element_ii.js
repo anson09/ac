@@ -1,3 +1,5 @@
+// tags: #monotonic-stack
+
 // https://leetcode.cn/problems/next-greater-element-ii/
 
 // time: 108ms | beat 32%

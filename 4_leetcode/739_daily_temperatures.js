@@ -1,3 +1,5 @@
+// tag: #monotonic-stack
+
 // https://leetcode.cn/problems/daily-temperatures/
 
 // time: 288ms | beat 34%

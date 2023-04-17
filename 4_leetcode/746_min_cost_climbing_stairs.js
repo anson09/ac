@@ -1,3 +1,5 @@
+// tags: #dp
+
 // https://leetcode.cn/problems/min-cost-climbing-stairs/
 
 // version 1

@@ -1,3 +1,5 @@
+// tags: #dp #knapsack
+
 // https://leetcode.cn/problems/partition-equal-subset-sum/
 
 // version 1

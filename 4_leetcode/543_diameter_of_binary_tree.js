@@ -1,3 +1,5 @@
+// tags: #tree #dfs
+
 // https://leetcode.cn/problems/diameter-of-binary-tree/
 
 // time: 72ms | beat 51%

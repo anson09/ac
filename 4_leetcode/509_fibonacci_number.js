@@ -1,3 +1,5 @@
+// tags: #dp
+
 // https://leetcode.cn/problems/fibonacci-number/
 
 // version 1

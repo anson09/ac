@@ -1,3 +1,5 @@
+// tags: #monotonic-stack
+
 // https://leetcode.cn/problems/next-greater-element-i/
 // time O(n)
 
