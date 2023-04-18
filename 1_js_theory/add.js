@@ -1,4 +1,6 @@
-// tags: #closure
+// tags: #closure #hot
+
+// implementing a add funtion pass below test
 
 function add(...rest1) {
   const _add = (...rest2) => add(...rest1, ...rest2);
