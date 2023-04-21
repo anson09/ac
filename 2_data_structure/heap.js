@@ -1,4 +1,4 @@
-// #heap #priority-queue #data-structure
+// tags: #heap #priority-queue #data-structure
 
 // 堆有最大堆/最小堆, 可用于实现优先级队列、堆排序
 class Heap {

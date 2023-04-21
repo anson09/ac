@@ -1,4 +1,4 @@
-// tag: #monotonic-stack
+// tags: #monotonic-stack
 
 // https://leetcode.cn/problems/daily-temperatures/
 

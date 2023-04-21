@@ -15,6 +15,8 @@ Codes are divided into 4 parts: 🥘
 
 You can filter themes by tag #xxx
 
+`#hot` `#dp` `#backtracking` `#tree` `#recursion` `#data-structure` `#math` `#knapsack` `#string` `#promise` `#monotonic-stack` `#dfs` `#closure` `#bit` `#combination` `#hashmap` `#two-pointers` `#concurrence` `#design-mode` `#bst` `#format` `#topk` `#quickselect` `#linkedlist` `#LIS` `#async` `#hash` `#api` `#debounce` `#clone` `#flat` `#regex` `#prototype` `#callback` `#event` `#rpc` `#throttle` `#graph` `#heap` `#priority-queue` `#trie` `#stack` `#monotonic-queue` `#sliding-window` `#permutation` `#sort`
+
 ## About Leetcode Challenge
 
 The leetcode run time and beat info could be used as a reference, but please not taking much seriously

@@ -1,4 +1,4 @@
-//tag: #flat #hot
+// tags: #flat #hot
 
 // 递归版本
 function flattenByRecursion(arr) {
