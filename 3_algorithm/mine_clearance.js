@@ -1,4 +1,4 @@
-// tags: #math
+// tags: #math #game
 
 // m -> row
 // n -> col
