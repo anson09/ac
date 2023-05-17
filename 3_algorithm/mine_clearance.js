@@ -1,8 +1,10 @@
 // tags: #math #game
 
-// m -> row
-// n -> col
-// k -> mines
+/**
+ * generating a mine clearance board
+ * @param {number} m - row
+ * @param {number} k - mines
+ */
 class MC {
   #board;
 
